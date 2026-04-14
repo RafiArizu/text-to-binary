@@ -1,0 +1,7 @@
+{
+  "name": "text-to-binary",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
