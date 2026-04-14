@@ -35,3 +35,94 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import "@ionic/angular/css/palettes/dark.system.css";
+
+// ============================================================
+// THE ENIGMA ENGINE — GLOBAL THEME
+// ============================================================
+
+// ─── COLOR PALETTE ──────────────────────────────────────────
+:root {
+  // Background tones
+  --color-bg-page:        #EEE8DE;   // warm parchment page
+  --color-bg-surface:     #F5F0E6;   // card / input surface
+  --color-bg-surface-alt: #EDE8DC;   // slightly darker surface
+  --color-bg-dark:        #2C1A0E;   // deep brown (tab active bg)
+
+  // Red/maroon brand
+  --color-red:            #8B1A1A;   // primary action red
+  --color-red-dark:       #6B0C0C;   // heading dark red
+  --color-red-muted:      #A03030;   // secondary red
+
+  // Text
+  --color-text-primary:   #1E0E06;   // near-black brown
+  --color-text-secondary: #5C4A3A;   // medium brown
+  --color-text-muted:     #8A7A6C;   // muted label
+  --color-text-placeholder: #B0A090; // italic placeholder
+  --color-text-on-dark:   #F5F0E6;   // text on dark bg
+
+  // Borders
+  --color-border:         #D4C9BA;   // standard border
+  --color-border-strong:  #BEB0A0;   // stronger border
+
+  // ─── TYPOGRAPHY ─────────────────────────────────────────
+  --font-serif:   'Georgia', 'Times New Roman', serif;
+  --font-sans:    'Helvetica Neue', 'Arial', sans-serif;
+  --font-mono:    'Courier New', 'Courier', monospace;
+
+  // ─── SPACING SYSTEM (8px base) ──────────────────────────
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  20px;
+  --space-6:  24px;
+  --space-8:  32px;
+
+  // ─── BORDER RADIUS ──────────────────────────────────────
+  --radius-sm:  4px;
+  --radius-md:  8px;
+  --radius-lg:  12px;
+
+  // ─── TAB BAR ────────────────────────────────────────────
+  --tab-height: 60px;
+}
+
+// ─── IONIC OVERRIDES ────────────────────────────────────────
+ion-app {
+  background: var(--color-bg-page);
+}
+
+ion-content {
+  --background: var(--color-bg-page);
+}
+
+ion-toolbar {
+  --background: var(--color-bg-page);
+  --border-color: transparent;
+  --box-shadow: none;
+}
+
+ion-footer {
+  background: var(--color-bg-surface);
+  border-top: 1px solid var(--color-border) !important;
+  box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.06);
+}
+
+// ─── TOAST CUSTOM ───────────────────────────────────────────
+.enigma-toast {
+  --border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.05em;
+}
+
+// ─── LIGHT FLASH EFFECT (Morse) ─────────────────────────────
+body.light-on {
+  ion-content {
+    --background: #FFFFFF;
+  }
+  .morse-output-card,
+  .cipher-card {
+    background: #FFFFFF !important;
+  }
+}

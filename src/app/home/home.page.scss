@@ -1,27 +1,515 @@
-#container {
-  text-align: center;
+// ============================================================
+// HOME PAGE — CODED LEXICON SCSS
+// Figma: The Enigma Engine / Halaman Translate
+// ============================================================
 
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
+// ─── PAGE WRAPPER ────────────────────────────────────────────
+.home-content {
+  --background: #EEE8DE;
 }
 
-#container strong {
-  font-size: 20px;
-  line-height: 26px;
+// ─── HEADER ──────────────────────────────────────────────────
+.home-header {
+  ion-toolbar {
+    --background:    #EEE8DE;
+    --padding-start: 0;
+    --padding-end:   0;
+    --min-height:    52px;
+  }
+
+  .app-title-bar {
+    padding: 14px 20px 0;
+  }
+
+  .app-title {
+    font-family:    'Georgia', serif;
+    font-size:      18px;
+    font-weight:    700;
+    color:          #8B1A1A;
+    letter-spacing: 0.01em;
+    line-height:    1;
+  }
 }
 
-#container p {
-  font-size: 16px;
-  line-height: 22px;
+// ─── HERO SECTION ────────────────────────────────────────────
+.hero-section {
+  margin: 16px 20px 0;
+  padding-left: 14px;
+  border-left: 3px solid #8B1A1A;
 
-  color: #8c8c8c;
+  .hero-label-row {
+    margin-bottom: 3px;
+  }
 
-  margin: 0;
+  .hero-label-text {
+    font-family:    'Courier New', monospace;
+    font-size:      9px;
+    font-weight:    400;
+    letter-spacing: 0.20em;
+    text-transform: uppercase;
+    color:          #8B1A1A;
+  }
+
+  .hero-title {
+    font-family:    'Georgia', serif;
+    font-size:      30px;
+    font-weight:    700;
+    color:          #6B0C0C;
+    margin:         0;
+    line-height:    1.1;
+    letter-spacing: -0.01em;
+  }
 }
 
-#container a {
-  text-decoration: none;
+// ─── FORMAT SELECTOR SECTION ─────────────────────────────────
+.format-section {
+  display:        flex;
+  gap:            12px;
+  margin:         20px 20px 0;
+  align-items:    flex-end;
+
+  .format-col {
+    flex: 1;
+
+    .field-label {
+      display:        block;
+      font-family:    'Courier New', monospace;
+      font-size:      8px;
+      font-weight:    400;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color:          #8A7A6C;
+      margin-bottom:  5px;
+    }
+
+    .select-wrapper {
+      position: relative;
+      display:  flex;
+      align-items: center;
+
+      .enigma-select {
+        width:           100%;
+        appearance:      none;
+        -webkit-appearance: none;
+        background:      #F5F0E6;
+        border:          1px solid #D4C9BA;
+        border-radius:   5px;
+        padding:         10px 32px 10px 12px;
+        font-family:     'Georgia', serif;
+        font-size:       15px;
+        font-weight:     400;
+        color:           #1E0E06;
+        cursor:          pointer;
+        outline:         none;
+        line-height:     1.2;
+
+        &:focus {
+          border-color: #8B1A1A;
+          box-shadow:   0 0 0 2.5px rgba(139, 26, 26, 0.18);
+        }
+      }
+
+      .select-arrow {
+        position:        absolute;
+        right:           10px;
+        font-size:       14px;
+        color:           #8B1A1A;
+        pointer-events:  none;
+        flex-shrink:     0;
+      }
+    }
+  }
+}
+
+// ─── CIPHER INPUT CARD ───────────────────────────────────────
+.input-card-section {
+  margin: 14px 20px 0;
+
+  .cipher-card {
+    background:    #F5F0E6;
+    border:        1px solid #D4C9BA;
+    border-radius: 6px;
+    overflow:      hidden;
+
+    .card-top-bar {
+      display:         flex;
+      justify-content: space-between;
+      align-items:     center;
+      padding:         9px 12px 4px;
+    }
+
+    .card-label {
+      font-family:    'Courier New', monospace;
+      font-size:      8px;
+      font-weight:    400;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color:          #8A7A6C;
+    }
+
+    .card-icon-btn {
+      display:         flex;
+      align-items:     center;
+      justify-content: center;
+      width:           24px;
+      height:          24px;
+      background:      transparent;
+      border:          none;
+      cursor:          pointer;
+      padding:         0;
+
+      ion-icon {
+        font-size: 14px;
+        color:     #8A7A6C;
+      }
+
+      &:active ion-icon {
+        color: #8B1A1A;
+      }
+    }
+
+    .cipher-input {
+      display:         block;
+      width:           100%;
+      box-sizing:      border-box;
+      border:          none;
+      outline:         none;
+      background:      transparent;
+      font-family:     'Georgia', serif;
+      font-size:       14px;
+      font-style:      italic;
+      color:           #1E0E06;
+      padding:         4px 14px 14px;
+      resize:          none;
+      min-height:      96px;
+      line-height:     1.6;
+
+      &::placeholder {
+        color:      #B0A090;
+        font-style: italic;
+      }
+    }
+  }
+}
+
+// ─── ACTION BUTTONS ROW ──────────────────────────────────────
+.action-section {
+  display:     flex;
+  align-items: center;
+  gap:         10px;
+  margin:      14px 20px 0;
+
+  .btn-convert {
+    flex:            1;
+    display:         flex;
+    align-items:     center;
+    justify-content: center;
+    gap:             8px;
+    background:      #8B1A1A;
+    border:          none;
+    border-radius:   5px;
+    padding:         13px 16px;
+    cursor:          pointer;
+    transition:      background 0.15s, transform 0.1s;
+
+    .btn-icon {
+      font-size: 17px;
+      color:     #F5F0E6;
+      flex-shrink: 0;
+    }
+
+    .btn-label {
+      font-family:    'Courier New', monospace;
+      font-size:      12px;
+      font-weight:    700;
+      letter-spacing: 0.22em;
+      color:          #F5F0E6;
+    }
+
+    &:active {
+      background: #6B0C0C;
+      transform:  scale(0.98);
+    }
+  }
+
+  .btn-icon-square {
+    display:         flex;
+    align-items:     center;
+    justify-content: center;
+    width:           46px;
+    height:          46px;
+    background:      #F5F0E6;
+    border:          1px solid #D4C9BA;
+    border-radius:   5px;
+    cursor:          pointer;
+    flex-shrink:     0;
+    transition:      background 0.15s, transform 0.1s;
+
+    ion-icon {
+      font-size: 18px;
+      color:     #5C4A3A;
+    }
+
+    &:active {
+      background: #EDE8DC;
+      transform:  scale(0.94);
+    }
+  }
+}
+
+// ─── OUTPUT MANIFEST CARD ────────────────────────────────────
+.output-card-section {
+  margin: 14px 20px 0;
+
+  .manifest-card {
+    background:    #F5F0E6;
+    border:        1px solid #D4C9BA;
+    border-radius: 6px;
+    overflow:      hidden;
+
+    .card-top-bar {
+      display:         flex;
+      justify-content: space-between;
+      align-items:     center;
+      padding:         9px 12px 4px;
+    }
+
+    .card-label {
+      font-family:    'Courier New', monospace;
+      font-size:      8px;
+      font-weight:    400;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color:          #8A7A6C;
+    }
+
+    .awaiting-text {
+      display:         flex;
+      align-items:     center;
+      gap:             4px;
+      font-family:     'Georgia', serif;
+      font-size:       11px;
+      font-style:      italic;
+      color:           #B0A090;
+
+      .awaiting-icon {
+        font-size: 13px;
+        color:     #B0A090;
+
+        &.ready {
+          color: #8B1A1A;
+        }
+      }
+    }
+
+    .manifest-output {
+      display:       block;
+      width:         100%;
+      box-sizing:    border-box;
+      border:        none;
+      outline:       none;
+      background:    transparent;
+      font-family:   'Courier New', monospace;
+      font-size:     13px;
+      color:         #1E0E06;
+      padding:       4px 14px 14px;
+      resize:        none;
+      min-height:    96px;
+      line-height:   1.7;
+      word-break:    break-all;
+      white-space:   pre-wrap;
+
+      &::placeholder {
+        color:      #B0A090;
+        font-style: italic;
+        font-family: 'Georgia', serif;
+      }
+    }
+  }
+}
+
+// ─── TOOL BUTTONS SECTION ────────────────────────────────────
+.tools-section {
+  display:     flex;
+  gap:         10px;
+  margin:      14px 20px 0;
+
+  .tool-btn {
+    flex:            1;
+    display:         flex;
+    flex-direction:  column;
+    align-items:     center;
+    justify-content: center;
+    gap:             5px;
+    background:      #F5F0E6;
+    border:          1px solid #D4C9BA;
+    border-radius:   6px;
+    padding:         13px 8px;
+    cursor:          pointer;
+    transition:      background 0.15s, transform 0.1s;
+
+    ion-icon {
+      font-size: 21px;
+      color:     #5C4A3A;
+    }
+
+    span {
+      font-family:    'Courier New', monospace;
+      font-size:      8px;
+      font-weight:    700;
+      letter-spacing: 0.14em;
+      color:          #8A7A6C;
+    }
+
+    &:active:not([disabled]) {
+      background: #EDE8DC;
+      transform:  scale(0.96);
+    }
+
+    &[disabled] {
+      opacity: 0.38;
+      cursor:  not-allowed;
+    }
+
+    // SAVE BIN variant — dark red bg
+    &.tool-btn--dark {
+      background: #6B0C0C;
+      border-color: #6B0C0C;
+
+      ion-icon { color: #F5F0E6; }
+      span     { color: rgba(245, 240, 230, 0.75); }
+
+      &:active:not([disabled]) {
+        background: #500909;
+      }
+    }
+  }
+}
+
+// ─── DECORATIVE QUOTE CARD ───────────────────────────────────
+.quote-section {
+  margin: 20px 20px 0;
+  padding-bottom: 90px; // space for tab bar
+
+  .quote-card {
+    position:      relative;
+    background:    #2C1A0E;
+    border-radius: 10px;
+    overflow:      hidden;
+    min-height:    110px;
+    display:       flex;
+    align-items:   center;
+    justify-content: center;
+
+    .quote-gear-bg {
+      position:   absolute;
+      inset:      0;
+      display:    flex;
+      align-items: center;
+      justify-content: center;
+      gap:        24px;
+      opacity:    0.12;
+
+      .gear {
+        color: #F5F0E6;
+        &.gear--large {
+          font-size: 88px;
+          animation: gear-spin 14s linear infinite;
+        }
+        &.gear--small {
+          font-size: 54px;
+          margin-top: 16px;
+          animation: gear-spin 9s linear infinite reverse;
+        }
+      }
+    }
+
+    .quote-text {
+      position:    relative;
+      z-index:     1;
+      font-family: 'Georgia', serif;
+      font-size:   13px;
+      font-style:  italic;
+      font-weight: 400;
+      color:       #F5F0E6;
+      text-align:  center;
+      padding:     28px 24px;
+      margin:      0;
+      line-height: 1.6;
+      opacity:     0.85;
+    }
+  }
+}
+
+@keyframes gear-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+// ─── FOOTER / TAB BAR ────────────────────────────────────────
+.home-footer {
+  background:  #F5F0E6 !important;
+  border-top:  1px solid #D4C9BA !important;
+  box-shadow:  0 -2px 12px rgba(44, 26, 14, 0.07);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.tab-bar {
+  display:  flex;
+  height:   var(--tab-height, 60px);
+
+  .tab-item {
+    flex:            1;
+    display:         flex;
+    flex-direction:  column;
+    align-items:     center;
+    justify-content: center;
+    gap:             3px;
+    text-decoration: none;
+    cursor:          pointer;
+    transition:      opacity 0.15s;
+
+    .tab-icon-wrap {
+      display:         flex;
+      align-items:     center;
+      justify-content: center;
+      width:           36px;
+      height:          28px;
+      border-radius:   10px;
+      transition:      background 0.2s;
+
+      ion-icon,
+      .morse-svg-icon {
+        font-size: 22px;
+        color:     #8A7A6C;
+        transition: color 0.2s;
+      }
+    }
+
+    .tab-label {
+      font-family:    'Courier New', monospace;
+      font-size:      8px;
+      font-weight:    700;
+      letter-spacing: 0.16em;
+      color:          #8A7A6C;
+      transition:     color 0.2s;
+    }
+
+    // ── ACTIVE STATE ──────────────────────────
+    &.tab-item--active {
+      .tab-icon-wrap {
+        background: #2C1A0E;
+        width:      42px;
+
+        ion-icon,
+        .morse-svg-icon {
+          color: #F5F0E6;
+        }
+      }
+
+      .tab-label {
+        color: #2C1A0E;
+      }
+    }
+  }
 }

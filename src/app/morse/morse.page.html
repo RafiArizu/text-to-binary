@@ -1,0 +1,302 @@
+<!-- ============================================================
+     MORSE PAGE — THE ENIGMA ENGINE
+     Figma: Halaman Morse
+     ============================================================ -->
+
+<ion-header class="ion-no-border morse-header">
+  <ion-toolbar>
+    <div class="app-title-bar">
+      <span class="app-title">THE ENIGMA ENGINE</span>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="morse-content">
+
+  <!-- ── FORMAT SELECTOR ROW ──────────────────────────── -->
+  <section class="format-section">
+    <div class="format-col">
+      <span class="field-label">FROM ORIGIN</span>
+      <div class="select-wrapper">
+        <select class="enigma-select" [(ngModel)]="fromFormat">
+          <option *ngFor="let f of morseOptions" [value]="f">{{ f }}</option>
+        </select>
+        <ion-icon name="chevron-down" class="select-arrow"></ion-icon>
+      </div>
+    </div>
+
+    <div class="format-col">
+      <span class="field-label">TO DESTINATION</span>
+      <div class="select-wrapper">
+        <select class="enigma-select" [(ngModel)]="toFormat">
+          <option *ngFor="let f of morseOptions" [value]="f">{{ f }}</option>
+        </select>
+        <ion-icon name="chevron-down" class="select-arrow"></ion-icon>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SOURCE INPUT CARD ─────────────────────────────── -->
+  <section class="input-card-section">
+    <div class="cipher-card">
+      <div class="card-top-bar">
+        <span class="card-label">SOURCE CIPHER</span>
+        <button class="card-icon-btn" (click)="onReset()" title="Bersihkan">
+          <ion-icon name="refresh-outline"></ion-icon>
+        </button>
+      </div>
+      <textarea
+        class="cipher-input"
+        [(ngModel)]="inputText"
+        [placeholder]="inputPlaceholder"
+        rows="4"
+        spellcheck="false"
+      ></textarea>
+    </div>
+  </section>
+
+  <!-- ── ACTION BUTTONS ROW ────────────────────────────── -->
+  <section class="action-section">
+    <button class="btn-convert" (click)="onConvert()">
+      <ion-icon name="flash-outline" class="btn-icon"></ion-icon>
+      <span class="btn-label">CONVERT</span>
+    </button>
+    <button class="btn-icon-square" (click)="onSwap()" title="Swap">
+      <ion-icon name="swap-horizontal-outline"></ion-icon>
+    </button>
+    <button class="btn-icon-square" (click)="onReset()" title="Reset">
+      <ion-icon name="refresh-outline"></ion-icon>
+    </button>
+  </section>
+
+  <!-- ── OUTPUT CARD ───────────────────────────────────── -->
+  <section class="output-card-section">
+    <div class="manifest-card">
+      <div class="card-top-bar">
+        <span class="card-label">TRANSLATED MANIFEST</span>
+        <span class="awaiting-text">
+          {{ outputText ? 'Result ready' : 'Awaiting result...' }}
+          <ion-icon
+            [name]="outputText ? 'checkmark-circle-outline' : 'pencil-outline'"
+            class="awaiting-icon"
+            [class.ready]="outputText"
+          ></ion-icon>
+        </span>
+      </div>
+      <textarea
+        class="manifest-output morse-font"
+        [value]="outputText"
+        readonly
+        [placeholder]="outputPlaceholder"
+        rows="4"
+      ></textarea>
+    </div>
+  </section>
+
+  <!-- ── AUDIO SLIDERS ─────────────────────────────────── -->
+  <section class="sliders-section">
+
+    <!-- SPEED -->
+    <div class="slider-row">
+      <span class="slider-label">SPEED</span>
+      <input
+        type="range"
+        class="enigma-slider"
+        [(ngModel)]="speed"
+        (ngModelChange)="onSliderChange()"
+        min="5" max="40" step="1"
+      />
+      <span class="slider-value">{{ speed }} WPM</span>
+    </div>
+
+    <!-- PITCH -->
+    <div class="slider-row">
+      <span class="slider-label">PITCH</span>
+      <input
+        type="range"
+        class="enigma-slider"
+        [(ngModel)]="pitch"
+        (ngModelChange)="onSliderChange()"
+        min="200" max="1200" step="50"
+      />
+      <span class="slider-value">{{ pitch }} Hz</span>
+    </div>
+
+    <!-- VOLUME -->
+    <div class="slider-row">
+      <span class="slider-label">VOLUME</span>
+      <input
+        type="range"
+        class="enigma-slider"
+        [(ngModel)]="volume"
+        (ngModelChange)="onSliderChange()"
+        min="0" max="100" step="1"
+      />
+      <span class="slider-value">{{ volume }}%</span>
+    </div>
+
+  </section>
+
+  <!-- ── AUDIO CONTROL BUTTONS ─────────────────────────── -->
+  <section class="audio-controls-section">
+
+    <!-- PLAY -->
+    <button
+      class="audio-btn audio-btn--play"
+      [class.audio-btn--active]="isPlaying"
+      (click)="onPlay()"
+      [disabled]="isPlaying && !isPaused"
+      title="Putar morse"
+    >
+      <ion-icon name="play"></ion-icon>
+    </button>
+
+    <!-- PAUSE -->
+    <button
+      class="audio-btn"
+      [class.audio-btn--active]="isPaused"
+      (click)="onPause()"
+      [disabled]="!isPlaying"
+      title="Jeda"
+    >
+      <ion-icon name="pause"></ion-icon>
+    </button>
+
+    <!-- STOP -->
+    <button
+      class="audio-btn"
+      (click)="onStop()"
+      [disabled]="!isPlaying && !isPaused"
+      title="Berhenti"
+    >
+      <ion-icon name="stop"></ion-icon>
+    </button>
+
+    <!-- REPLAY -->
+    <button
+      class="audio-btn"
+      (click)="onReplay()"
+      title="Ulangi"
+    >
+      <ion-icon name="refresh-outline"></ion-icon>
+    </button>
+
+  </section>
+
+  <!-- ── FEATURE BUTTONS ROW 1: LIGHT · VIBRATE · CONFIGURE ── -->
+  <section class="feature-row">
+
+    <button
+      class="feature-btn"
+      [class.feature-btn--active]="isLightActive"
+      (click)="onLight()"
+      title="Kedip layar pola morse"
+    >
+      <div class="feature-icon-wrap">
+        <ion-icon name="bulb-outline"></ion-icon>
+      </div>
+      <span class="feature-label">LIGHT</span>
+    </button>
+
+    <button
+      class="feature-btn"
+      [class.feature-btn--active]="isVibrateActive"
+      (click)="onVibrate()"
+      title="Getar pola morse"
+    >
+      <div class="feature-icon-wrap">
+        <ion-icon name="phone-portrait-outline"></ion-icon>
+      </div>
+      <span class="feature-label">VIBRATE</span>
+    </button>
+
+    <button
+      class="feature-btn"
+      (click)="onCopy()"
+      title="Salin hasil"
+    >
+      <div class="feature-icon-wrap">
+        <!-- Custom "configure / sliders" icon -->
+        <ion-icon name="options-outline"></ion-icon>
+      </div>
+      <span class="feature-label">CONFIGURE</span>
+    </button>
+
+  </section>
+
+  <!-- ── FEATURE BUTTONS ROW 2: SAVE · SEND TO FRIEND ─────── -->
+  <section class="save-row">
+
+    <button
+      class="save-btn save-btn--outline"
+      (click)="onSave()"
+      title="Ekspor MP3"
+    >
+      <ion-icon name="document-outline"></ion-icon>
+      <span>SAVE</span>
+    </button>
+
+    <button
+      class="save-btn save-btn--solid"
+      (click)="onSendToFriend()"
+      title="Bagikan ke teman"
+    >
+      <ion-icon name="send-outline"></ion-icon>
+      <span>SEND TO FRIEND</span>
+    </button>
+
+  </section>
+
+  <!-- ── LIGHT FLASH OVERLAY ─────────────────────────────── -->
+  <div class="light-overlay" [class.light-overlay--on]="isScreenOn" aria-hidden="true"></div>
+
+  <!-- ── DECORATIVE IMAGE / QUOTE ──────────────────────────── -->
+  <section class="quote-section">
+    <div class="quote-card">
+      <div class="quote-gear-bg" aria-hidden="true">
+        <ion-icon name="settings-outline" class="gear gear--large"></ion-icon>
+        <ion-icon name="settings-outline" class="gear gear--small"></ion-icon>
+      </div>
+      <!-- Telephone decorative image placeholder -->
+      <div class="telephone-placeholder" aria-hidden="true">
+        <ion-icon name="call-outline" class="telephone-icon"></ion-icon>
+      </div>
+    </div>
+  </section>
+
+</ion-content>
+
+<!-- ── BOTTOM TAB BAR ────────────────────────────────────────── -->
+<ion-footer class="ion-no-border morse-footer">
+  <nav class="tab-bar">
+
+    <a class="tab-item" routerLink="/home">
+      <div class="tab-icon-wrap">
+        <ion-icon name="language-outline"></ion-icon>
+      </div>
+      <span class="tab-label">TRANSLATE</span>
+    </a>
+
+    <a class="tab-item tab-item--active" routerLink="/morse">
+      <div class="tab-icon-wrap">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
+             xmlns="http://www.w3.org/2000/svg" class="morse-svg-icon">
+          <circle cx="5"  cy="12" r="2.5" fill="currentColor"/>
+          <rect   x="10" y="10" width="9" height="4" rx="2" fill="currentColor"/>
+          <circle cx="5"  cy="19" r="2.5" fill="currentColor"/>
+          <circle cx="10" cy="19" r="2.5" fill="currentColor"/>
+          <rect   x="15" y="17" width="4" height="4" rx="2" fill="currentColor"/>
+        </svg>
+      </div>
+      <span class="tab-label">MORSE</span>
+    </a>
+
+    <a class="tab-item" routerLink="/settings">
+      <div class="tab-icon-wrap">
+        <ion-icon name="settings-outline"></ion-icon>
+      </div>
+      <span class="tab-label">SETTINGS</span>
+    </a>
+
+  </nav>
+</ion-footer>

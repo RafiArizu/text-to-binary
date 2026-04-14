@@ -1,20 +1,174 @@
-<ion-header [translucent]="true">
+<!-- ============================================================
+     HOME PAGE — CODED LEXICON (TRANSLATE)
+     Figma: The Enigma Engine / Halaman Translate
+     ============================================================ -->
+
+<ion-header class="ion-no-border home-header">
   <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+    <div class="app-title-bar">
+      <span class="app-title">The Enigma Engine</span>
+    </div>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="true" class="home-content">
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+  <!-- ── HERO SECTION ─────────────────────────────────── -->
+  <section class="hero-section">
+    <div class="hero-label-row">
+      <span class="hero-label-text">DECIPHERING APPARATUS</span>
+    </div>
+    <h1 class="hero-title">Coded Lexicon</h1>
+  </section>
+
+  <!-- ── FORMAT SELECTOR ROW ──────────────────────────── -->
+  <section class="format-section">
+    <div class="format-col">
+      <span class="field-label">FROM ORIGIN</span>
+      <div class="select-wrapper">
+        <select class="enigma-select" [(ngModel)]="fromFormat">
+          <option *ngFor="let f of formatOptions" [value]="f">{{ f }}</option>
+        </select>
+        <ion-icon name="chevron-down" class="select-arrow"></ion-icon>
+      </div>
+    </div>
+
+    <div class="format-col">
+      <span class="field-label">TO DESTINATION</span>
+      <div class="select-wrapper">
+        <select class="enigma-select" [(ngModel)]="toFormat">
+          <option *ngFor="let f of formatOptions" [value]="f">{{ f }}</option>
+        </select>
+        <ion-icon name="chevron-down" class="select-arrow"></ion-icon>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SOURCE INPUT CARD ─────────────────────────────── -->
+  <section class="input-card-section">
+    <div class="cipher-card">
+      <div class="card-top-bar">
+        <span class="card-label">SOURCE CIPHER</span>
+        <button class="card-icon-btn" (click)="onReset()" title="Bersihkan">
+          <ion-icon name="refresh-outline"></ion-icon>
+        </button>
+      </div>
+      <textarea
+        class="cipher-input"
+        [(ngModel)]="inputText"
+        [placeholder]="inputPlaceholder"
+        rows="5"
+        spellcheck="false"
+        autocomplete="off"
+      ></textarea>
+    </div>
+  </section>
+
+  <!-- ── ACTION BUTTONS ROW ────────────────────────────── -->
+  <section class="action-section">
+    <button class="btn-convert" (click)="onConvert()">
+      <ion-icon name="flash-outline" class="btn-icon"></ion-icon>
+      <span class="btn-label">CONVERT</span>
+    </button>
+
+    <button class="btn-icon-square" (click)="onSwap()" title="Swap format">
+      <ion-icon name="swap-horizontal-outline"></ion-icon>
+    </button>
+
+    <button class="btn-icon-square" (click)="onReset()" title="Reset">
+      <ion-icon name="refresh-outline"></ion-icon>
+    </button>
+  </section>
+
+  <!-- ── OUTPUT CARD ───────────────────────────────────── -->
+  <section class="output-card-section">
+    <div class="manifest-card">
+      <div class="card-top-bar">
+        <span class="card-label">TRANSLATED MANIFEST</span>
+        <span class="awaiting-text">
+          {{ outputText ? 'Result ready' : 'Awaiting result...' }}
+          <ion-icon
+            [name]="outputText ? 'checkmark-circle-outline' : 'pencil-outline'"
+            class="awaiting-icon"
+            [class.ready]="outputText"
+          ></ion-icon>
+        </span>
+      </div>
+      <textarea
+        class="manifest-output"
+        [value]="outputText"
+        readonly
+        [placeholder]="outputPlaceholder"
+        rows="5"
+      ></textarea>
+    </div>
+  </section>
+
+  <!-- ── TOOL BUTTONS ROW ──────────────────────────────── -->
+  <section class="tools-section">
+    <button class="tool-btn" (click)="onCopy()" [disabled]="!outputText">
+      <ion-icon name="copy-outline"></ion-icon>
+      <span>COPY</span>
+    </button>
+
+    <button class="tool-btn" (click)="onSaveTxt()" [disabled]="!outputText">
+      <ion-icon name="save-outline"></ion-icon>
+      <span>SAVE</span>
+    </button>
+
+    <button class="tool-btn tool-btn--dark" (click)="onSaveBin()" [disabled]="!outputText">
+      <ion-icon name="document-outline"></ion-icon>
+      <span>SAVE BIN</span>
+    </button>
+  </section>
+
+  <!-- ── DECORATIVE QUOTE CARD ─────────────────────────── -->
+  <section class="quote-section">
+    <div class="quote-card">
+      <div class="quote-gear-bg" aria-hidden="true">
+        <ion-icon name="settings-outline" class="gear gear--large"></ion-icon>
+        <ion-icon name="settings-outline" class="gear gear--small"></ion-icon>
+      </div>
+      <p class="quote-text">
+        "Knowledge is the lever that moves the world."
+      </p>
+    </div>
+  </section>
+
 </ion-content>
+
+<!-- ── BOTTOM TAB BAR ────────────────────────────────────── -->
+<ion-footer class="ion-no-border home-footer">
+  <nav class="tab-bar">
+
+    <a class="tab-item tab-item--active" routerLink="/home">
+      <div class="tab-icon-wrap">
+        <ion-icon name="language-outline"></ion-icon>
+      </div>
+      <span class="tab-label">TRANSLATE</span>
+    </a>
+
+    <a class="tab-item" routerLink="/morse">
+      <div class="tab-icon-wrap">
+        <!-- Custom morse icon SVG -->
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
+             xmlns="http://www.w3.org/2000/svg" class="morse-svg-icon">
+          <circle cx="5"  cy="12" r="2.5" fill="currentColor"/>
+          <rect   x="10" y="10" width="9" height="4" rx="2" fill="currentColor"/>
+          <circle cx="5"  cy="19" r="2.5" fill="currentColor"/>
+          <circle cx="10" cy="19" r="2.5" fill="currentColor"/>
+          <rect   x="15" y="17" width="4" height="4" rx="2" fill="currentColor"/>
+        </svg>
+      </div>
+      <span class="tab-label">MORSE</span>
+    </a>
+
+    <a class="tab-item" routerLink="/settings">
+      <div class="tab-icon-wrap">
+        <ion-icon name="settings-outline"></ion-icon>
+      </div>
+      <span class="tab-label">SETTINGS</span>
+    </a>
+
+  </nav>
+</ion-footer>
