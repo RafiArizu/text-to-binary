@@ -1,11 +1,214 @@
-<ion-header class="ion-no-border">
+<!-- ============================================================
+     SETTINGS PAGE — THE ENIGMA ENGINE
+     Halaman Pengaturan: Tema, Haptik, Legal, Dukungan
+     ============================================================ -->
+
+<ion-header class="ion-no-border settings-header">
   <ion-toolbar>
-    <ion-title>Settings</ion-title>
+    <div class="header-bar">
+      <!-- Ikon buku dekoratif -->
+      <ion-icon name="book-outline" class="header-icon"></ion-icon>
+      <span class="header-title">The Enigma Engine</span>
+    </div>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <div style="padding: 24px; text-align: center; color: #8A7A6C; font-family: 'Courier New', monospace; font-size: 13px; letter-spacing: 0.1em; margin-top: 40px;">
-    COMING SOON
+<ion-content [fullscreen]="true" class="settings-content">
+
+  <!-- ── PAGE HERO ─────────────────────────────────────── -->
+  <div class="page-hero">
+    <h1 class="page-title">Pengaturan</h1>
+    <p class="page-subtitle">KONFIGURASI INSTRUMEN ENIGMA</p>
   </div>
+
+  <!-- ════════════════════════════════════════════════════ -->
+  <!-- SECTION 1 — TAMPILAN VISUAL                         -->
+  <!-- ════════════════════════════════════════════════════ -->
+  <section class="settings-section">
+
+    <div class="section-header">
+      <ion-icon name="eye-outline" class="section-icon"></ion-icon>
+      <span class="section-title">Tampilan Visual</span>
+    </div>
+
+    <div class="section-card">
+      <div class="setting-row">
+        <span class="setting-label">Tema Layar</span>
+        <div class="select-wrapper">
+          <select
+            class="theme-select"
+            [(ngModel)]="selectedTheme"
+            (ngModelChange)="onThemeChange()"
+          >
+            <option *ngFor="let opt of themeOptions" [value]="opt">{{ opt }}</option>
+          </select>
+          <ion-icon name="chevron-down" class="select-chevron"></ion-icon>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ════════════════════════════════════════════════════ -->
+  <!-- SECTION 2 — KONTROL HAPTIK                          -->
+  <!-- ════════════════════════════════════════════════════ -->
+  <section class="settings-section">
+
+    <div class="section-header">
+      <ion-icon name="hand-left-outline" class="section-icon"></ion-icon>
+      <span class="section-title">Kontrol Haptik</span>
+    </div>
+
+    <div class="section-card">
+      <div class="setting-row">
+        <span class="setting-label">Getaran Aplikasi</span>
+        <!-- Toggle Switch Custom -->
+        <label class="toggle-switch">
+          <input
+            type="checkbox"
+            [(ngModel)]="isVibrationOn"
+            (ngModelChange)="onVibrationToggle()"
+          />
+          <span class="toggle-track">
+            <span class="toggle-thumb"></span>
+          </span>
+        </label>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ════════════════════════════════════════════════════ -->
+  <!-- SECTION 3 — INFORMASI LEGAL                         -->
+  <!-- ════════════════════════════════════════════════════ -->
+  <section class="settings-section">
+
+    <div class="section-header">
+      <ion-icon name="scale-outline" class="section-icon"></ion-icon>
+      <span class="section-title">Informasi Legal</span>
+    </div>
+
+    <div class="section-card">
+      <button class="nav-row" (click)="openPrivacyPolicy()">
+        <span class="setting-label">Kebijakan Privasi</span>
+        <ion-icon name="chevron-forward" class="nav-chevron"></ion-icon>
+      </button>
+    </div>
+
+  </section>
+
+  <!-- ════════════════════════════════════════════════════ -->
+  <!-- SECTION 4 — DUKUNGAN APLIKASI                       -->
+  <!-- ════════════════════════════════════════════════════ -->
+  <section class="settings-section">
+
+    <div class="section-header">
+      <ion-icon name="location-outline" class="section-icon"></ion-icon>
+      <span class="section-title">Dukungan Aplikasi</span>
+    </div>
+
+    <button class="rate-btn" (click)="onRateApp()">
+      <ion-icon name="star" class="rate-star"></ion-icon>
+      <span class="rate-label">BERI NILAI KAMI</span>
+    </button>
+
+    <p class="version-text">Versi {{ appVersion }}</p>
+
+  </section>
+
 </ion-content>
+
+<!-- ════════════════════════════════════════════════════════ -->
+<!-- MODAL — KEBIJAKAN PRIVASI                               -->
+<!-- ════════════════════════════════════════════════════════ -->
+<div class="privacy-modal-overlay" [class.is-open]="showPrivacyModal" (click)="closePrivacyModal()">
+  <div class="privacy-modal" (click)="$event.stopPropagation()">
+
+    <div class="modal-header">
+      <h2 class="modal-title">Kebijakan Privasi</h2>
+      <button class="modal-close" (click)="closePrivacyModal()">
+        <ion-icon name="close-outline"></ion-icon>
+      </button>
+    </div>
+
+    <div class="modal-body">
+
+      <p class="modal-lead">
+        The Enigma Engine beroperasi <strong>seratus persen secara luring</strong>
+        dan tidak memerlukan koneksi internet.
+      </p>
+
+      <h3 class="modal-section-title">Data yang Kami Kumpulkan</h3>
+      <p class="modal-text">
+        Kami <strong>tidak mengumpulkan</strong>, menyimpan, atau mengirimkan data
+        pribadi Anda ke server mana pun. Semua pemrosesan teks, konversi biner,
+        dan output sandi morse dilakukan sepenuhnya di perangkat Anda.
+      </p>
+
+      <h3 class="modal-section-title">Izin Perangkat</h3>
+      <p class="modal-text">
+        Aplikasi ini meminta izin <strong>Getaran (Vibration)</strong> semata-mata
+        untuk menampilkan pola sandi morse melalui umpan balik taktil. Izin ini
+        tidak digunakan untuk tujuan lain.
+      </p>
+
+      <h3 class="modal-section-title">Penyimpanan Lokal</h3>
+      <p class="modal-text">
+        Preferensi pengguna (tema, volume, kecepatan) disimpan secara lokal di
+        perangkat menggunakan Capacitor Preferences. Data ini tidak pernah
+        meninggalkan perangkat Anda.
+      </p>
+
+      <h3 class="modal-section-title">Kontak</h3>
+      <p class="modal-text">
+        Jika Anda memiliki pertanyaan mengenai kebijakan privasi ini, hubungi kami
+        melalui halaman aplikasi di Google Play Store.
+      </p>
+
+      <p class="modal-date">Terakhir diperbarui: Januari 2025</p>
+
+    </div>
+
+    <div class="modal-footer">
+      <button class="modal-ok-btn" (click)="closePrivacyModal()">
+        MENGERTI
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<!-- ── BOTTOM TAB BAR ──────────────────────────────────── -->
+<ion-footer class="ion-no-border settings-footer">
+  <nav class="tab-bar">
+
+    <a class="tab-item" routerLink="/home">
+      <div class="tab-icon-wrap">
+        <ion-icon name="language-outline"></ion-icon>
+      </div>
+      <span class="tab-label">TRANSLATE</span>
+    </a>
+
+    <a class="tab-item" routerLink="/morse">
+      <div class="tab-icon-wrap">
+        <!-- Morse dot-dash icon -->
+        <svg width="24" height="16" viewBox="0 0 24 16" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="2.5"  cy="4"   r="2.5" fill="currentColor"/>
+          <rect   x="7"    y="1.5"  width="15" height="5"  rx="2.5" fill="currentColor"/>
+          <circle cx="2.5"  cy="12"  r="2.5" fill="currentColor"/>
+          <circle cx="8.5"  cy="12"  r="2.5" fill="currentColor"/>
+          <rect   x="13"   y="9.5"  width="9"  height="5"  rx="2.5" fill="currentColor"/>
+        </svg>
+      </div>
+      <span class="tab-label">MORSE</span>
+    </a>
+
+    <a class="tab-item tab-item--active" routerLink="/settings">
+      <div class="tab-icon-wrap">
+        <ion-icon name="settings-outline"></ion-icon>
+      </div>
+      <span class="tab-label">SETTINGS</span>
+    </a>
+
+  </nav>
+</ion-footer>

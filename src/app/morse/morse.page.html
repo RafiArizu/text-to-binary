@@ -1,20 +1,29 @@
 <!-- ============================================================
      MORSE PAGE — THE ENIGMA ENGINE
-     Figma: Halaman Morse
      ============================================================ -->
 
-<ion-header class="ion-no-border morse-header">
+<ion-content [fullscreen]="true" class="morse-content">
+
+<ion-header class="ion-no-border home-header">
   <ion-toolbar>
     <div class="app-title-bar">
-      <span class="app-title">THE ENIGMA ENGINE</span>
+      <span class="app-title">The Enigma Engine</span>
     </div>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" class="morse-content">
+<section class="hero-section">
+  <div class="hero-label-row">
+    <span class="hero-label-text">DECIPHERING APPARATUS</span>
+  </div>
+  <h1 class="hero-title">Coded Lexicon</h1>
+</section>
+
+
 
   <!-- ── FORMAT SELECTOR ROW ──────────────────────────── -->
   <section class="format-section">
+
     <div class="format-col">
       <span class="field-label">FROM ORIGIN</span>
       <div class="select-wrapper">
@@ -34,74 +43,84 @@
         <ion-icon name="chevron-down" class="select-arrow"></ion-icon>
       </div>
     </div>
+
   </section>
 
   <!-- ── SOURCE INPUT CARD ─────────────────────────────── -->
-  <section class="input-card-section">
+  <section class="card-section">
     <div class="cipher-card">
-      <div class="card-top-bar">
+
+      <div class="card-header">
         <span class="card-label">SOURCE CIPHER</span>
-        <button class="card-icon-btn" (click)="onReset()" title="Bersihkan">
+        <button class="card-reset-btn" (click)="onReset()">
           <ion-icon name="refresh-outline"></ion-icon>
         </button>
       </div>
+
       <textarea
-        class="cipher-input"
+        class="cipher-textarea"
         [(ngModel)]="inputText"
         [placeholder]="inputPlaceholder"
         rows="4"
         spellcheck="false"
+        autocomplete="off"
       ></textarea>
+
     </div>
   </section>
 
-  <!-- ── ACTION BUTTONS ROW ────────────────────────────── -->
+  <!-- ── ACTION ROW: CONVERT · SWAP · RESET ───────────── -->
   <section class="action-section">
+
     <button class="btn-convert" (click)="onConvert()">
-      <ion-icon name="flash-outline" class="btn-icon"></ion-icon>
-      <span class="btn-label">CONVERT</span>
+      <ion-icon name="flash-outline"></ion-icon>
+      <span>CONVERT</span>
     </button>
-    <button class="btn-icon-square" (click)="onSwap()" title="Swap">
+
+    <button class="btn-square" (click)="onSwap()" title="Tukar format">
       <ion-icon name="swap-horizontal-outline"></ion-icon>
     </button>
-    <button class="btn-icon-square" (click)="onReset()" title="Reset">
+
+    <button class="btn-square" (click)="onReset()" title="Reset">
       <ion-icon name="refresh-outline"></ion-icon>
     </button>
+
   </section>
 
-  <!-- ── OUTPUT CARD ───────────────────────────────────── -->
-  <section class="output-card-section">
+  <!-- ── OUTPUT / MANIFEST CARD ────────────────────────── -->
+  <section class="card-section">
     <div class="manifest-card">
-      <div class="card-top-bar">
+
+      <div class="card-header">
         <span class="card-label">TRANSLATED MANIFEST</span>
-        <span class="awaiting-text">
+        <span class="awaiting-badge">
           {{ outputText ? 'Result ready' : 'Awaiting result...' }}
           <ion-icon
             [name]="outputText ? 'checkmark-circle-outline' : 'pencil-outline'"
-            class="awaiting-icon"
-            [class.ready]="outputText"
+            [class.is-ready]="!!outputText"
           ></ion-icon>
         </span>
       </div>
+
       <textarea
-        class="manifest-output morse-font"
+        class="manifest-textarea"
         [value]="outputText"
         readonly
         [placeholder]="outputPlaceholder"
         rows="4"
       ></textarea>
+
     </div>
   </section>
 
-  <!-- ── AUDIO SLIDERS ─────────────────────────────────── -->
+  <!-- ── SLIDERS (langsung di page, tanpa card border) ── -->
   <section class="sliders-section">
 
-    <!-- SPEED -->
     <div class="slider-row">
       <span class="slider-label">SPEED</span>
       <input
         type="range"
-        class="enigma-slider"
+        class="enigma-range"
         [(ngModel)]="speed"
         (ngModelChange)="onSliderChange()"
         min="5" max="40" step="1"
@@ -109,12 +128,11 @@
       <span class="slider-value">{{ speed }} WPM</span>
     </div>
 
-    <!-- PITCH -->
     <div class="slider-row">
       <span class="slider-label">PITCH</span>
       <input
         type="range"
-        class="enigma-slider"
+        class="enigma-range"
         [(ngModel)]="pitch"
         (ngModelChange)="onSliderChange()"
         min="200" max="1200" step="50"
@@ -122,12 +140,11 @@
       <span class="slider-value">{{ pitch }} Hz</span>
     </div>
 
-    <!-- VOLUME -->
     <div class="slider-row">
       <span class="slider-label">VOLUME</span>
       <input
         type="range"
-        class="enigma-slider"
+        class="enigma-range"
         [(ngModel)]="volume"
         (ngModelChange)="onSliderChange()"
         min="0" max="100" step="1"
@@ -137,16 +154,15 @@
 
   </section>
 
-  <!-- ── AUDIO CONTROL BUTTONS ─────────────────────────── -->
-  <section class="audio-controls-section">
+  <!-- ── AUDIO CONTROL: PLAY · PAUSE · STOP · REPLAY ─── -->
+  <section class="audio-section">
 
-    <!-- PLAY -->
+    <!-- PLAY — dark red filled -->
     <button
       class="audio-btn audio-btn--play"
-      [class.audio-btn--active]="isPlaying"
       (click)="onPlay()"
       [disabled]="isPlaying && !isPaused"
-      title="Putar morse"
+      title="Play"
     >
       <ion-icon name="play"></ion-icon>
     </button>
@@ -157,7 +173,7 @@
       [class.audio-btn--active]="isPaused"
       (click)="onPause()"
       [disabled]="!isPlaying"
-      title="Jeda"
+      title="Pause"
     >
       <ion-icon name="pause"></ion-icon>
     </button>
@@ -167,7 +183,7 @@
       class="audio-btn"
       (click)="onStop()"
       [disabled]="!isPlaying && !isPaused"
-      title="Berhenti"
+      title="Stop"
     >
       <ion-icon name="stop"></ion-icon>
     </button>
@@ -176,23 +192,22 @@
     <button
       class="audio-btn"
       (click)="onReplay()"
-      title="Ulangi"
+      title="Replay"
     >
       <ion-icon name="refresh-outline"></ion-icon>
     </button>
 
   </section>
 
-  <!-- ── FEATURE BUTTONS ROW 1: LIGHT · VIBRATE · CONFIGURE ── -->
-  <section class="feature-row">
+  <!-- ── FEATURE BUTTONS: LIGHT · VIBRATE · CONFIGURE ─── -->
+  <section class="feature-section">
 
     <button
       class="feature-btn"
-      [class.feature-btn--active]="isLightActive"
+      [class.feature-btn--on]="isLightActive"
       (click)="onLight()"
-      title="Kedip layar pola morse"
     >
-      <div class="feature-icon-wrap">
+      <div class="feature-icon">
         <ion-icon name="bulb-outline"></ion-icon>
       </div>
       <span class="feature-label">LIGHT</span>
@@ -200,11 +215,10 @@
 
     <button
       class="feature-btn"
-      [class.feature-btn--active]="isVibrateActive"
+      [class.feature-btn--on]="isVibrateActive"
       (click)="onVibrate()"
-      title="Getar pola morse"
     >
-      <div class="feature-icon-wrap">
+      <div class="feature-icon">
         <ion-icon name="phone-portrait-outline"></ion-icon>
       </div>
       <span class="feature-label">VIBRATE</span>
@@ -213,10 +227,8 @@
     <button
       class="feature-btn"
       (click)="onCopy()"
-      title="Salin hasil"
     >
-      <div class="feature-icon-wrap">
-        <!-- Custom "configure / sliders" icon -->
+      <div class="feature-icon">
         <ion-icon name="options-outline"></ion-icon>
       </div>
       <span class="feature-label">CONFIGURE</span>
@@ -224,49 +236,83 @@
 
   </section>
 
-  <!-- ── FEATURE BUTTONS ROW 2: SAVE · SEND TO FRIEND ─────── -->
-  <section class="save-row">
+  <!-- ── SAVE · SEND TO FRIEND ─────────────────────────── -->
+  <section class="save-section">
 
-    <button
-      class="save-btn save-btn--outline"
-      (click)="onSave()"
-      title="Ekspor MP3"
-    >
+    <button class="save-btn" (click)="onSave()">
       <ion-icon name="document-outline"></ion-icon>
       <span>SAVE</span>
     </button>
 
-    <button
-      class="save-btn save-btn--solid"
-      (click)="onSendToFriend()"
-      title="Bagikan ke teman"
-    >
+    <button class="send-btn" (click)="onSendToFriend()">
       <ion-icon name="send-outline"></ion-icon>
       <span>SEND TO FRIEND</span>
     </button>
 
   </section>
 
-  <!-- ── LIGHT FLASH OVERLAY ─────────────────────────────── -->
-  <div class="light-overlay" [class.light-overlay--on]="isScreenOn" aria-hidden="true"></div>
+  <!-- ── LIGHT FLASH OVERLAY ─────────────────────────── -->
+  <div
+    class="light-overlay"
+    [class.light-overlay--on]="isScreenOn"
+    aria-hidden="true"
+  ></div>
 
-  <!-- ── DECORATIVE IMAGE / QUOTE ──────────────────────────── -->
-  <section class="quote-section">
-    <div class="quote-card">
-      <div class="quote-gear-bg" aria-hidden="true">
-        <ion-icon name="settings-outline" class="gear gear--large"></ion-icon>
-        <ion-icon name="settings-outline" class="gear gear--small"></ion-icon>
-      </div>
-      <!-- Telephone decorative image placeholder -->
-      <div class="telephone-placeholder" aria-hidden="true">
-        <ion-icon name="call-outline" class="telephone-icon"></ion-icon>
-      </div>
+  <!-- ── TELEPHONE DECORATIVE ──────────────────────────── -->
+  <section class="telephone-section">
+    <div class="telephone-card">
+      <svg viewBox="0 0 320 210" xmlns="http://www.w3.org/2000/svg" class="phone-svg">
+        <!-- desk base shadow -->
+        <ellipse cx="160" cy="195" rx="130" ry="10" fill="rgba(0,0,0,0.35)"/>
+        <!-- main body -->
+        <rect x="30"  y="65"  width="260" height="120" rx="20" fill="#2A1D10"/>
+        <rect x="40"  y="73"  width="240" height="105" rx="16" fill="#221508"/>
+        <!-- left cradle -->
+        <path d="M50 80 Q36 95 36 128 Q36 158 54 168 Q68 174 80 168 L86 156 Q72 152 68 138 Q63 120 66 104 Q69 92 80 86 L72 76 Q60 72 50 80Z" fill="#35240E"/>
+        <!-- right cradle -->
+        <path d="M130 78 Q120 90 118 110 Q115 132 120 150 Q124 162 114 167 L120 178 Q136 182 148 174 Q164 162 163 135 Q162 108 152 92 Q145 80 130 78Z" fill="#35240E"/>
+        <!-- handset highlight -->
+        <path d="M55 82 Q48 95 47 118 Q47 96 55 82Z" fill="rgba(255,220,150,0.07)"/>
+        <!-- dial plate -->
+        <circle cx="208" cy="128" r="52" fill="#2E2010"/>
+        <circle cx="208" cy="128" r="45" fill="#281C0C"/>
+        <circle cx="208" cy="128" r="36" fill="#1E1508"/>
+        <!-- dial finger holes (10 holes in a circle) -->
+        <circle cx="208" cy="87"  r="5.5" fill="#3C2C14" opacity="0.9"/>
+        <circle cx="234" cy="95"  r="5.5" fill="#3C2C14" opacity="0.9"/>
+        <circle cx="248" cy="118" r="5.5" fill="#3C2C14" opacity="0.9"/>
+        <circle cx="244" cy="144" r="5.5" fill="#3C2C14" opacity="0.9"/>
+        <circle cx="225" cy="163" r="5.5" fill="#3C2C14" opacity="0.9"/>
+        <circle cx="200" cy="169" r="5.5" fill="#3C2C14" opacity="0.9"/>
+        <circle cx="175" cy="163" r="5.5" fill="#3C2C14" opacity="0.9"/>
+        <circle cx="158" cy="144" r="5.5" fill="#3C2C14" opacity="0.9"/>
+        <circle cx="155" cy="118" r="5.5" fill="#3C2C14" opacity="0.9"/>
+        <circle cx="170" cy="95"  r="5.5" fill="#3C2C14" opacity="0.9"/>
+        <!-- speaker grill dots -->
+        <circle cx="80"  cy="112" r="2.2" fill="#0C0804" opacity="0.8"/>
+        <circle cx="89"  cy="112" r="2.2" fill="#0C0804" opacity="0.8"/>
+        <circle cx="98"  cy="112" r="2.2" fill="#0C0804" opacity="0.8"/>
+        <circle cx="80"  cy="122" r="2.2" fill="#0C0804" opacity="0.8"/>
+        <circle cx="89"  cy="122" r="2.2" fill="#0C0804" opacity="0.8"/>
+        <circle cx="98"  cy="122" r="2.2" fill="#0C0804" opacity="0.8"/>
+        <circle cx="80"  cy="132" r="2.2" fill="#0C0804" opacity="0.8"/>
+        <circle cx="89"  cy="132" r="2.2" fill="#0C0804" opacity="0.8"/>
+        <circle cx="98"  cy="132" r="2.2" fill="#0C0804" opacity="0.8"/>
+        <circle cx="80"  cy="142" r="2.2" fill="#0C0804" opacity="0.8"/>
+        <circle cx="89"  cy="142" r="2.2" fill="#0C0804" opacity="0.8"/>
+        <circle cx="98"  cy="142" r="2.2" fill="#0C0804" opacity="0.8"/>
+        <!-- top sheen -->
+        <path d="M55 72 Q140 62 230 66 Q270 68 285 76 Q250 66 200 64 Q140 60 80 68Z"
+              fill="rgba(255,230,170,0.05)"/>
+        <!-- cord -->
+        <path d="M44 168 Q30 180 25 200" stroke="#2A1D10" stroke-width="5" fill="none" stroke-linecap="round"/>
+      </svg>
     </div>
   </section>
 
 </ion-content>
 
-<!-- ── BOTTOM TAB BAR ────────────────────────────────────────── -->
+<!-- ── BOTTOM TAB BAR ────────────────────────────────────── -->
 <ion-footer class="ion-no-border morse-footer">
   <nav class="tab-bar">
 
@@ -279,13 +325,13 @@
 
     <a class="tab-item tab-item--active" routerLink="/morse">
       <div class="tab-icon-wrap">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
-             xmlns="http://www.w3.org/2000/svg" class="morse-svg-icon">
-          <circle cx="5"  cy="12" r="2.5" fill="currentColor"/>
-          <rect   x="10" y="10" width="9" height="4" rx="2" fill="currentColor"/>
-          <circle cx="5"  cy="19" r="2.5" fill="currentColor"/>
-          <circle cx="10" cy="19" r="2.5" fill="currentColor"/>
-          <rect   x="15" y="17" width="4" height="4" rx="2" fill="currentColor"/>
+        <!-- Dot-dash morse icon -->
+        <svg width="24" height="16" viewBox="0 0 24 16" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="2.5" cy="4"    r="2.5" fill="currentColor"/>
+          <rect   x="7"   y="1.5"   width="15" height="5" rx="2.5" fill="currentColor"/>
+          <circle cx="2.5" cy="12"   r="2.5" fill="currentColor"/>
+          <circle cx="8.5" cy="12"   r="2.5" fill="currentColor"/>
+          <rect   x="13"  y="9.5"   width="9"  height="5" rx="2.5" fill="currentColor"/>
         </svg>
       </div>
       <span class="tab-label">MORSE</span>

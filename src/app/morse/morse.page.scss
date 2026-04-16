@@ -1,15 +1,17 @@
 // ============================================================
-// MORSE PAGE SCSS
-// Figma: The Enigma Engine / Halaman Morse
+// MORSE PAGE SCSS — THE ENIGMA ENGINE
+// Pixel-perfect sesuai desain Figma
 // ============================================================
 
-// ─── PAGE WRAPPER ────────────────────────────────────────────
+// ─── PAGE BACKGROUND ─────────────────────────────────────────
 .morse-content {
   --background: #EEE8DE;
 }
 
 // ─── HEADER ──────────────────────────────────────────────────
-.morse-header {
+
+// ─── HEADER ──────────────────────────────────────────────────
+.home-header {
   ion-toolbar {
     --background:    #EEE8DE;
     --padding-start: 0;
@@ -22,12 +24,64 @@
   }
 
   .app-title {
-    font-family:    'Courier New', monospace;
-    font-size:      13px;
+    font-family:    'Georgia', serif;
+    font-size:      18px;
     font-weight:    700;
-    letter-spacing: 0.22em;
-    color:          #1E0E06;
+    color:          #8B1A1A;
+    letter-spacing: 0.01em;
+    line-height:    1;
+  }
+}
+
+// .morse-header {
+//   ion-toolbar {
+//     --background:    #EEE8DE;
+//     --padding-start: 0;
+//     --padding-end:   0;
+//     --min-height:    52px;
+//     --border-width:  0;
+//   }
+
+//   .header-title-bar {
+//     padding: 16px 20px 0;
+//   }
+
+//   .header-title {
+//     font-family:    'Courier New', monospace;
+//     font-size:      14px;
+//     font-weight:    700;
+//     letter-spacing: 0.24em;
+//     text-transform: uppercase;
+//     color:          #1E0E06;
+//   }
+// }
+
+.hero-section {
+  margin: 16px 20px 0;
+  padding-left: 14px;
+  border-left: 3px solid #8B1A1A;
+
+  .hero-label-row {
+    margin-bottom: 3px;
+  }
+
+  .hero-label-text {
+    font-family:    'Courier New', monospace;
+    font-size:      9px;
+    font-weight:    400;
+    letter-spacing: 0.20em;
     text-transform: uppercase;
+    color:          #8B1A1A;
+  }
+
+  .hero-title {
+    font-family:    'Georgia', serif;
+    font-size:      30px;
+    font-weight:    700;
+    color:          #6B0C0C;
+    margin:         0;
+    line-height:    1.1;
+    letter-spacing: -0.01em;
   }
 }
 
@@ -35,7 +89,7 @@
 .format-section {
   display:     flex;
   gap:         12px;
-  margin:      20px 20px 0;
+  margin:      18px 20px 0;
   align-items: flex-end;
 
   .format-col {
@@ -52,8 +106,8 @@
     }
 
     .select-wrapper {
-      position: relative;
-      display:  flex;
+      position:    relative;
+      display:     flex;
       align-items: center;
 
       .enigma-select {
@@ -69,10 +123,11 @@
         color:              #1E0E06;
         cursor:             pointer;
         outline:            none;
+        line-height:        1.2;
 
         &:focus {
           border-color: #8B1A1A;
-          box-shadow:   0 0 0 2.5px rgba(139, 26, 26, 0.18);
+          box-shadow:   0 0 0 2px rgba(139, 26, 26, 0.15);
         }
       }
 
@@ -87,78 +142,147 @@
   }
 }
 
-// ─── INPUT CARD ──────────────────────────────────────────────
-.input-card-section {
-  margin: 14px 20px 0;
+// ─── CARD SECTION WRAPPER ────────────────────────────────────
+.card-section {
+  margin: 12px 20px 0;
+}
 
-  .cipher-card {
-    background:    #F5F0E6;
-    border:        1px solid #D4C9BA;
-    border-radius: 6px;
-    overflow:      hidden;
+// ─── CIPHER INPUT CARD ───────────────────────────────────────
+.cipher-card {
+  background:    #F5F0E6;
+  border:        1px solid #D4C9BA;
+  border-radius: 6px;
+  overflow:      hidden;
 
-    .card-top-bar {
-      display:         flex;
-      justify-content: space-between;
-      align-items:     center;
-      padding:         9px 12px 4px;
+  .card-header {
+    display:         flex;
+    justify-content: space-between;
+    align-items:     center;
+    padding:         9px 12px 4px;
+  }
+
+  .card-label {
+    font-family:    'Courier New', monospace;
+    font-size:      8px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color:          #8A7A6C;
+  }
+
+  .card-reset-btn {
+    display:         flex;
+    align-items:     center;
+    justify-content: center;
+    width:           24px;
+    height:          24px;
+    background:      transparent;
+    border:          none;
+    cursor:          pointer;
+    padding:         0;
+
+    ion-icon {
+      font-size: 13px;
+      color:     #8A7A6C;
     }
+  }
 
-    .card-label {
-      font-family:    'Courier New', monospace;
-      font-size:      8px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color:          #8A7A6C;
-    }
+  .cipher-textarea {
+    display:     block;
+    width:       100%;
+    box-sizing:  border-box;
+    border:      none;
+    outline:     none;
+    background:  transparent;
+    font-family: 'Georgia', serif;
+    font-size:   14px;
+    font-style:  italic;
+    color:       #1E0E06;
+    padding:     2px 14px 14px;
+    resize:      none;
+    min-height:  88px;
+    line-height: 1.65;
 
-    .card-icon-btn {
-      display:  flex;
-      align-items: center;
-      justify-content: center;
-      width:    24px;
-      height:   24px;
-      background: transparent;
-      border:   none;
-      cursor:   pointer;
-      padding:  0;
-
-      ion-icon {
-        font-size: 14px;
-        color:     #8A7A6C;
-      }
-    }
-
-    .cipher-input {
-      display:     block;
-      width:       100%;
-      box-sizing:  border-box;
-      border:      none;
-      outline:     none;
-      background:  transparent;
-      font-family: 'Georgia', serif;
-      font-size:   14px;
-      font-style:  italic;
-      color:       #1E0E06;
-      padding:     4px 14px 14px;
-      resize:      none;
-      min-height:  80px;
-      line-height: 1.6;
-
-      &::placeholder {
-        color:      #B0A090;
-        font-style: italic;
-      }
+    &::placeholder {
+      color:      #B0A090;
+      font-style: italic;
     }
   }
 }
 
-// ─── ACTION BUTTONS ──────────────────────────────────────────
+// ─── MANIFEST OUTPUT CARD ────────────────────────────────────
+.manifest-card {
+  background:    #F5F0E6;
+  border:        1px solid #D4C9BA;
+  border-radius: 6px;
+  overflow:      hidden;
+
+  .card-header {
+    display:         flex;
+    justify-content: space-between;
+    align-items:     center;
+    padding:         9px 12px 4px;
+  }
+
+  .card-label {
+    font-family:    'Courier New', monospace;
+    font-size:      8px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color:          #8A7A6C;
+  }
+
+  .awaiting-badge {
+    display:     flex;
+    align-items: center;
+    gap:         4px;
+    font-family: 'Georgia', serif;
+    font-size:   11px;
+    font-style:  italic;
+    color:       #B0A090;
+
+    ion-icon {
+      font-size: 12px;
+      color:     #B0A090;
+
+      &.is-ready {
+        color: #8B1A1A;
+      }
+    }
+  }
+
+  .manifest-textarea {
+    display:     block;
+    width:       100%;
+    box-sizing:  border-box;
+    border:      none;
+    outline:     none;
+    background:  transparent;
+    font-family: 'Courier New', monospace;
+    font-size:   15px;
+    letter-spacing: 0.08em;
+    color:       #1E0E06;
+    padding:     4px 14px 14px;
+    resize:      none;
+    min-height:  88px;
+    line-height: 1.75;
+    word-break:  break-all;
+    white-space: pre-wrap;
+
+    &::placeholder {
+      font-family: 'Courier New', monospace;
+      font-size:   14px;
+      color:       #B0A090;
+      letter-spacing: 0.05em;
+    }
+  }
+}
+
+// ─── ACTION ROW ──────────────────────────────────────────────
 .action-section {
   display:     flex;
   align-items: center;
   gap:         10px;
-  margin:      14px 20px 0;
+  margin:      12px 20px 0;
 
   .btn-convert {
     flex:            1;
@@ -173,12 +297,13 @@
     cursor:          pointer;
     transition:      background 0.15s, transform 0.1s;
 
-    .btn-icon {
-      font-size: 17px;
-      color:     #F5F0E6;
+    ion-icon {
+      font-size:   17px;
+      color:       #F5F0E6;
+      flex-shrink: 0;
     }
 
-    .btn-label {
+    span {
       font-family:    'Courier New', monospace;
       font-size:      12px;
       font-weight:    700;
@@ -192,7 +317,7 @@
     }
   }
 
-  .btn-icon-square {
+  .btn-square {
     display:         flex;
     align-items:     center;
     justify-content: center;
@@ -212,95 +337,17 @@
 
     &:active {
       background: #EDE8DC;
-      transform:  scale(0.94);
+      transform:  scale(0.93);
     }
   }
 }
 
-// ─── OUTPUT MANIFEST CARD ────────────────────────────────────
-.output-card-section {
-  margin: 14px 20px 0;
-
-  .manifest-card {
-    background:    #F5F0E6;
-    border:        1px solid #D4C9BA;
-    border-radius: 6px;
-    overflow:      hidden;
-
-    .card-top-bar {
-      display:         flex;
-      justify-content: space-between;
-      align-items:     center;
-      padding:         9px 12px 4px;
-    }
-
-    .card-label {
-      font-family:    'Courier New', monospace;
-      font-size:      8px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color:          #8A7A6C;
-    }
-
-    .awaiting-text {
-      display:     flex;
-      align-items: center;
-      gap:         4px;
-      font-family: 'Georgia', serif;
-      font-size:   11px;
-      font-style:  italic;
-      color:       #B0A090;
-
-      .awaiting-icon {
-        font-size: 13px;
-        color:     #B0A090;
-
-        &.ready { color: #8B1A1A; }
-      }
-    }
-
-    .manifest-output {
-      display:     block;
-      width:       100%;
-      box-sizing:  border-box;
-      border:      none;
-      outline:     none;
-      background:  transparent;
-      padding:     4px 14px 14px;
-      resize:      none;
-      min-height:  80px;
-      word-break:  break-all;
-      white-space: pre-wrap;
-      line-height: 1.8;
-
-      &::placeholder {
-        color:      #B0A090;
-        font-style: italic;
-        font-family: 'Georgia', serif;
-        font-size:  14px;
-      }
-
-      // Morse font override
-      &.morse-font {
-        font-family:    'Courier New', monospace;
-        font-size:      16px;
-        letter-spacing: 0.1em;
-        color:          #1E0E06;
-      }
-    }
-  }
-}
-
-// ─── SLIDERS ─────────────────────────────────────────────────
+// ─── SLIDERS (tanpa card, langsung di background page) ───────
 .sliders-section {
-  margin:        16px 20px 0;
-  background:    #F5F0E6;
-  border:        1px solid #D4C9BA;
-  border-radius: 6px;
-  padding:       14px 16px;
-  display:       flex;
+  margin:         16px 20px 0;
+  display:        flex;
   flex-direction: column;
-  gap:           14px;
+  gap:            14px;
 
   .slider-row {
     display:     flex;
@@ -311,44 +358,59 @@
       font-family:    'Courier New', monospace;
       font-size:      9px;
       font-weight:    700;
-      letter-spacing: 0.15em;
-      color:          #8A7A6C;
-      width:          52px;
-      flex-shrink:    0;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
+      color:          #5C4A3A;
+      width:          54px;
+      flex-shrink:    0;
     }
 
-    .enigma-slider {
-      flex:                 1;
-      -webkit-appearance:   none;
-      appearance:           none;
-      height:               4px;
-      background:           #D4C9BA;
-      border-radius:        2px;
-      outline:              none;
-      cursor:               pointer;
+    .enigma-range {
+      flex:               1;
+      -webkit-appearance: none;
+      appearance:         none;
+      height:             3px;
+      background:         #D4C9BA;
+      border-radius:      2px;
+      outline:            none;
+      cursor:             pointer;
 
-      // ── Webkit thumb ──
+      // Track fill illusion using background (webkit)
+      &::-webkit-slider-runnable-track {
+        height:        3px;
+        border-radius: 2px;
+        background:    #D4C9BA;
+      }
+
+      // Thumb — webkit
       &::-webkit-slider-thumb {
         -webkit-appearance: none;
         appearance:         none;
         width:              16px;
         height:             16px;
-        border-radius:      2px;
+        border-radius:      3px;
         background:         #8B1A1A;
         cursor:             pointer;
-        box-shadow:         0 1px 4px rgba(139, 26, 26, 0.35);
+        margin-top:         -6.5px;
+        box-shadow:         0 1px 4px rgba(139, 26, 26, 0.4);
       }
 
-      // ── Firefox thumb ──
-      &::-moz-range-thumb {
-        width:        16px;
-        height:       16px;
+      // Track — firefox
+      &::-moz-range-track {
+        height:        3px;
+        background:    #D4C9BA;
         border-radius: 2px;
-        background:   #8B1A1A;
-        cursor:       pointer;
-        border:       none;
-        box-shadow:   0 1px 4px rgba(139, 26, 26, 0.35);
+      }
+
+      // Thumb — firefox
+      &::-moz-range-thumb {
+        width:         16px;
+        height:        16px;
+        border-radius: 3px;
+        background:    #8B1A1A;
+        border:        none;
+        cursor:        pointer;
+        box-shadow:    0 1px 4px rgba(139, 26, 26, 0.4);
       }
     }
 
@@ -357,7 +419,7 @@
       font-size:      10px;
       font-weight:    700;
       color:          #1E0E06;
-      width:          60px;
+      width:          58px;
       text-align:     right;
       flex-shrink:    0;
     }
@@ -365,11 +427,10 @@
 }
 
 // ─── AUDIO CONTROL BUTTONS ───────────────────────────────────
-.audio-controls-section {
-  display:         flex;
-  gap:             10px;
-  margin:          14px 20px 0;
-  justify-content: flex-start;
+.audio-section {
+  display:    flex;
+  gap:        10px;
+  margin:     16px 20px 0;
 
   .audio-btn {
     display:         flex;
@@ -381,44 +442,46 @@
     border:          1px solid #D4C9BA;
     border-radius:   6px;
     cursor:          pointer;
-    transition:      background 0.15s, transform 0.1s, border-color 0.15s;
     flex-shrink:     0;
+    transition:      background 0.15s, transform 0.1s, border-color 0.15s;
 
     ion-icon {
       font-size: 22px;
       color:     #5C4A3A;
     }
 
-    // PLAY button — filled dark red
+    // PLAY — dark red filled (sesuai Figma)
     &.audio-btn--play {
       background:   #8B1A1A;
       border-color: #8B1A1A;
+
       ion-icon { color: #F5F0E6; }
     }
 
-    // Active state (pause is active)
+    // Active state (mis. Pause sedang aktif)
     &.audio-btn--active {
       background:   #2C1A0E;
       border-color: #2C1A0E;
+
       ion-icon { color: #F5F0E6; }
     }
 
     &:active:not([disabled]) {
-      transform: scale(0.92);
+      transform: scale(0.91);
     }
 
     &[disabled] {
-      opacity: 0.35;
+      opacity: 0.32;
       cursor:  not-allowed;
     }
   }
 }
 
-// ─── FEATURE BUTTONS ROW 1 ───────────────────────────────────
-.feature-row {
+// ─── FEATURE BUTTONS ─────────────────────────────────────────
+.feature-section {
   display: flex;
   gap:     10px;
-  margin:  14px 20px 0;
+  margin:  12px 20px 0;
 
   .feature-btn {
     flex:            1;
@@ -430,20 +493,21 @@
     background:      #F5F0E6;
     border:          1px solid #D4C9BA;
     border-radius:   6px;
-    padding:         12px 6px;
+    padding:         12px 8px;
     cursor:          pointer;
     transition:      background 0.15s, border-color 0.15s, transform 0.1s;
 
-    .feature-icon-wrap {
+    .feature-icon {
       display:         flex;
       align-items:     center;
       justify-content: center;
-      width:           28px;
-      height:          28px;
+      width:           26px;
+      height:          26px;
 
       ion-icon {
         font-size: 20px;
         color:     #5C4A3A;
+        transition: color 0.15s;
       }
     }
 
@@ -453,18 +517,16 @@
       font-weight:    700;
       letter-spacing: 0.14em;
       color:          #8A7A6C;
+      transition:     color 0.15s;
     }
 
-    // Active toggle state
-    &.feature-btn--active {
-      background:   rgba(139, 26, 26, 0.10);
+    // Toggle ON state
+    &.feature-btn--on {
+      background:   rgba(139, 26, 26, 0.08);
       border-color: #8B1A1A;
 
-      .feature-icon-wrap ion-icon {
-        color: #8B1A1A;
-      }
-
-      .feature-label { color: #8B1A1A; }
+      .feature-icon ion-icon { color: #8B1A1A; }
+      .feature-label          { color: #8B1A1A; }
     }
 
     &:active:not([disabled]) {
@@ -473,25 +535,31 @@
   }
 }
 
-// ─── SAVE / SEND ROW ─────────────────────────────────────────
-.save-row {
-  display: flex;
-  gap:     10px;
-  margin:  10px 20px 0;
+// ─── SAVE ROW ────────────────────────────────────────────────
+.save-section {
+  display:     flex;
+  gap:         10px;
+  margin:      10px 20px 0;
+  align-items: stretch;
 
+  // SAVE — outline kecil
   .save-btn {
     display:         flex;
     align-items:     center;
     justify-content: center;
-    gap:             8px;
+    gap:             7px;
+    background:      #F5F0E6;
+    border:          1px solid #D4C9BA;
     border-radius:   5px;
     padding:         13px 16px;
     cursor:          pointer;
+    flex-shrink:     0;
+    min-width:       88px;
     transition:      background 0.15s, transform 0.1s;
-    border:          none;
 
     ion-icon {
       font-size: 17px;
+      color:     #5C4A3A;
       flex-shrink: 0;
     }
 
@@ -500,113 +568,92 @@
       font-size:      11px;
       font-weight:    700;
       letter-spacing: 0.14em;
+      color:          #5C4A3A;
     }
 
-    // Outline variant (SAVE)
-    &.save-btn--outline {
-      background:   #F5F0E6;
-      border:       1px solid #D4C9BA;
-      flex:         0 0 auto;
-      min-width:    96px;
+    &:active {
+      background: #EDE8DC;
+      transform:  scale(0.97);
+    }
+  }
 
-      ion-icon { color: #5C4A3A; }
-      span     { color: #5C4A3A; }
+  // SEND TO FRIEND — red filled, mengisi sisa lebar
+  .send-btn {
+    flex:            1;
+    display:         flex;
+    align-items:     center;
+    justify-content: center;
+    gap:             8px;
+    background:      #8B1A1A;
+    border:          none;
+    border-radius:   5px;
+    padding:         13px 16px;
+    cursor:          pointer;
+    transition:      background 0.15s, transform 0.1s;
 
-      &:active { background: #EDE8DC; transform: scale(0.97); }
+    ion-icon {
+      font-size: 17px;
+      color:     #F5F0E6;
+      flex-shrink: 0;
     }
 
-    // Solid variant (SEND TO FRIEND)
-    &.save-btn--solid {
-      background: #8B1A1A;
-      flex:       1;
+    span {
+      font-family:    'Courier New', monospace;
+      font-size:      11px;
+      font-weight:    700;
+      letter-spacing: 0.14em;
+      color:          #F5F0E6;
+    }
 
-      ion-icon { color: #F5F0E6; }
-      span     { color: #F5F0E6; }
-
-      &:active { background: #6B0C0C; transform: scale(0.98); }
+    &:active {
+      background: #6B0C0C;
+      transform:  scale(0.98);
     }
   }
 }
 
 // ─── LIGHT FLASH OVERLAY ─────────────────────────────────────
 .light-overlay {
-  position:        fixed;
-  inset:           0;
-  background:      #FFFFFF;
-  pointer-events:  none;
-  z-index:         999;
-  opacity:         0;
-  transition:      opacity 0.05s;
+  position:       fixed;
+  inset:          0;
+  background:     #FFFFFF;
+  pointer-events: none;
+  z-index:        999;
+  opacity:        0;
+  transition:     opacity 0.04s;
 
   &.light-overlay--on {
     opacity: 1;
   }
 }
 
-// ─── DECORATIVE QUOTE CARD ───────────────────────────────────
-.quote-section {
-  margin:          20px 20px 0;
-  padding-bottom:  90px;
+// ─── TELEPHONE DECORATIVE SECTION ────────────────────────────
+.telephone-section {
+  margin:         14px 20px 0;
+  padding-bottom: 88px; // ruang untuk tab bar
 
-  .quote-card {
-    position:        relative;
-    background:      #1A1008;
-    border-radius:   10px;
-    overflow:        hidden;
-    min-height:      140px;
-    display:         flex;
-    align-items:     center;
+  .telephone-card {
+    background:    #1A120A;
+    border-radius: 10px;
+    overflow:      hidden;
+    display:       flex;
+    align-items:   center;
     justify-content: center;
+    padding:       16px 0 12px;
 
-    .quote-gear-bg {
-      position:        absolute;
-      inset:           0;
-      display:         flex;
-      align-items:     center;
-      justify-content: center;
-      gap:             24px;
-      opacity:         0.08;
-
-      .gear {
-        color: #F5F0E6;
-
-        &.gear--large {
-          font-size: 88px;
-          animation: gear-spin 14s linear infinite;
-        }
-        &.gear--small {
-          font-size:  54px;
-          margin-top: 16px;
-          animation:  gear-spin 9s linear infinite reverse;
-        }
-      }
-    }
-
-    .telephone-placeholder {
-      position:   relative;
-      z-index:    1;
-      display:    flex;
-      align-items: center;
-      justify-content: center;
-
-      .telephone-icon {
-        font-size: 64px;
-        color:     rgba(245, 240, 230, 0.15);
-      }
+    .phone-svg {
+      width:      100%;
+      max-height: 170px;
+      display:    block;
     }
   }
 }
 
-@keyframes gear-spin {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
-}
-
-// ─── FOOTER / TAB BAR (re-used pattern) ──────────────────────
+// ─── BOTTOM TAB BAR ──────────────────────────────────────────
 .morse-footer {
-  background:  #F5F0E6 !important;
-  border-top:  1px solid #D4C9BA !important;
-  box-shadow:  0 -2px 12px rgba(44, 26, 14, 0.07);
+  background:     #F5F0E6 !important;
+  border-top:     1px solid #D4C9BA !important;
+  box-shadow:     0 -2px 12px rgba(44, 26, 14, 0.07);
   padding-bottom: env(safe-area-inset-bottom);
 }
 
@@ -623,19 +670,22 @@
     gap:             3px;
     text-decoration: none;
     cursor:          pointer;
+    transition:      opacity 0.15s;
 
     .tab-icon-wrap {
       display:         flex;
       align-items:     center;
       justify-content: center;
-      width:           36px;
+      width:           40px;
       height:          28px;
       border-radius:   10px;
+      transition:      background 0.2s;
 
       ion-icon,
-      .morse-svg-icon {
+      svg {
         font-size: 22px;
         color:     #8A7A6C;
+        transition: color 0.2s;
       }
     }
 
@@ -645,16 +695,17 @@
       font-weight:    700;
       letter-spacing: 0.16em;
       color:          #8A7A6C;
+      transition:     color 0.2s;
     }
 
-    // ── ACTIVE STATE ─────────────────────
+    // ── ACTIVE ────────────────────────────────────────
     &.tab-item--active {
       .tab-icon-wrap {
         background: #2C1A0E;
-        width:      42px;
+        width:      44px;
 
         ion-icon,
-        .morse-svg-icon {
+        svg {
           color: #F5F0E6;
         }
       }

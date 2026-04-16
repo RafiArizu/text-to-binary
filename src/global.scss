@@ -116,6 +116,30 @@ ion-footer {
   letter-spacing: 0.05em;
 }
 
+// ─── DARK THEME ─────────────────────────────────────────────
+body.theme-dark {
+  --color-bg-page:          #1A120A;
+  --color-bg-surface:       #231810;
+  --color-text-primary:     #EEE8DE;
+  --color-text-secondary:   #C4B8A8;
+  --color-border:           #3A2A1A;
+
+  ion-content   { --background: #1A120A; }
+  ion-toolbar   { --background: #1A120A; }
+  ion-footer    { background: #231810 !important; border-top-color: #3A2A1A !important; }
+
+  .cipher-card,
+  .manifest-card,
+  .section-card { background: #231810 !important; border-color: #3A2A1A !important; }
+
+  .enigma-select,
+  .cipher-textarea,
+  .manifest-textarea { background: transparent; color: #EEE8DE; }
+
+  .setting-label { color: #EEE8DE; }
+  .nav-chevron   { color: #8A7A6C; }
+}
+
 // ─── LIGHT FLASH EFFECT (Morse) ─────────────────────────────
 body.light-on {
   ion-content {
