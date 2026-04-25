@@ -8,53 +8,37 @@
   --background: #EEE8DE;
 }
 
-// ─── HEADER ──────────────────────────────────────────────────
 
-// ─── HEADER ──────────────────────────────────────────────────
-.home-header {
+
+.settings-header {
   ion-toolbar {
     --background:    #EEE8DE;
     --padding-start: 0;
     --padding-end:   0;
     --min-height:    52px;
+    --border-width:  0;
   }
 
-  .app-title-bar {
-    padding: 14px 20px 0;
-  }
+  .header-bar {
+    display:     flex;
+    align-items: center;
+    gap:         8px;
+    padding:     16px 20px 0;
 
-  .app-title {
-    font-family:    'Georgia', serif;
-    font-size:      18px;
-    font-weight:    700;
-    color:          #8B1A1A;
-    letter-spacing: 0.01em;
-    line-height:    1;
+    .header-icon {
+      font-size: 18px;
+      color:     #8B1A1A;
+    }
+
+    .header-title {
+      font-family:    'Georgia', serif;
+      font-size:      17px;
+      font-weight:    700;
+      color:          #8B1A1A;
+      letter-spacing: 0.01em;
+    }
   }
 }
-
-// .morse-header {
-//   ion-toolbar {
-//     --background:    #EEE8DE;
-//     --padding-start: 0;
-//     --padding-end:   0;
-//     --min-height:    52px;
-//     --border-width:  0;
-//   }
-
-//   .header-title-bar {
-//     padding: 16px 20px 0;
-//   }
-
-//   .header-title {
-//     font-family:    'Courier New', monospace;
-//     font-size:      14px;
-//     font-weight:    700;
-//     letter-spacing: 0.24em;
-//     text-transform: uppercase;
-//     color:          #1E0E06;
-//   }
-// }
 
 .hero-section {
   margin: 16px 20px 0;
@@ -82,6 +66,31 @@
     margin:         0;
     line-height:    1.1;
     letter-spacing: -0.01em;
+  }
+}
+
+
+// ─── HEADER ──────────────────────────────────────────────────
+.morse-header {
+  ion-toolbar {
+    --background:    #EEE8DE;
+    --padding-start: 0;
+    --padding-end:   0;
+    --min-height:    52px;
+    --border-width:  0;
+  }
+
+  .header-title-bar {
+    padding: 16px 20px 0;
+  }
+
+  .header-title {
+    font-family:    'Courier New', monospace;
+    font-size:      14px;
+    font-weight:    700;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color:          #1E0E06;
   }
 }
 
@@ -532,6 +541,13 @@
     &:active:not([disabled]) {
       transform: scale(0.95);
     }
+
+    // ── DISABLED STATE ──────────────────────────────────
+    &[disabled] {
+      opacity:        0.35;
+      cursor:         not-allowed;
+      pointer-events: none;
+    }
   }
 }
 
@@ -555,7 +571,7 @@
     cursor:          pointer;
     flex-shrink:     0;
     min-width:       88px;
-    transition:      background 0.15s, transform 0.1s;
+    transition:      background 0.15s, transform 0.1s, opacity 0.15s;
 
     ion-icon {
       font-size: 17px;
@@ -571,9 +587,16 @@
       color:          #5C4A3A;
     }
 
-    &:active {
+    &:active:not([disabled]) {
       background: #EDE8DC;
       transform:  scale(0.97);
+    }
+
+    // ── DISABLED STATE ─────────────────────────────────
+    &[disabled] {
+      opacity:        0.35;
+      cursor:         not-allowed;
+      pointer-events: none;
     }
   }
 
@@ -589,7 +612,7 @@
     border-radius:   5px;
     padding:         13px 16px;
     cursor:          pointer;
-    transition:      background 0.15s, transform 0.1s;
+    transition:      background 0.15s, transform 0.1s, opacity 0.15s;
 
     ion-icon {
       font-size: 17px;
@@ -605,9 +628,16 @@
       color:          #F5F0E6;
     }
 
-    &:active {
+    &:active:not([disabled]) {
       background: #6B0C0C;
       transform:  scale(0.98);
+    }
+
+    // ── DISABLED STATE ─────────────────────────────────
+    &[disabled] {
+      opacity:        0.35;
+      cursor:         not-allowed;
+      pointer-events: none;
     }
   }
 }

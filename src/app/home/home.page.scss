@@ -8,6 +8,41 @@
   --background: #EEE8DE;
 }
 
+.settings-content {
+  --background: #EEE8DE;
+}
+
+// ─── HEADER ──────────────────────────────────────────────────
+.settings-header {
+  ion-toolbar {
+    --background:    #EEE8DE;
+    --padding-start: 0;
+    --padding-end:   0;
+    --min-height:    52px;
+    --border-width:  0;
+  }
+
+  .header-bar {
+    display:     flex;
+    align-items: center;
+    gap:         8px;
+    padding:     16px 20px 0;
+
+    .header-icon {
+      font-size: 18px;
+      color:     #8B1A1A;
+    }
+
+    .header-title {
+      font-family:    'Georgia', serif;
+      font-size:      17px;
+      font-weight:    700;
+      color:          #8B1A1A;
+      letter-spacing: 0.01em;
+    }
+  }
+}
+
 // ─── HEADER ──────────────────────────────────────────────────
 .home-header {
   ion-toolbar {
@@ -15,19 +50,31 @@
     --padding-start: 0;
     --padding-end:   0;
     --min-height:    52px;
+    --border-width:  0;
   }
 
   .app-title-bar {
     padding: 14px 20px 0;
   }
 
-  .app-title {
-    font-family:    'Georgia', serif;
-    font-size:      18px;
-    font-weight:    700;
-    color:          #8B1A1A;
-    letter-spacing: 0.01em;
-    line-height:    1;
+  .header-bar {
+    display:     flex;
+    align-items: center;
+    gap:         8px;
+    padding:     16px 20px 0;
+
+    .header-icon {
+      font-size: 18px;
+      color:     #8B1A1A;
+    }
+
+    .header-title {
+      font-family:    'Georgia', serif;
+      font-size:      17px;
+      font-weight:    700;
+      color:          #8B1A1A;
+      letter-spacing: 0.01em;
+    }
   }
 }
 

@@ -10,6 +10,7 @@ import { Filesystem, Directory } from '@capacitor/filesystem';
 import { Haptics, ImpactStyle }  from '@capacitor/haptics';
 import { Share }        from '@capacitor/share';
 import { Preferences }  from '@capacitor/preferences';
+import { Capacitor } from '@capacitor/core';
 
 // ─── MORSE CODE MAP ──────────────────────────────────────────
 const MORSE_MAP: Record<string, string> = {
@@ -26,7 +27,6 @@ const MORSE_MAP: Record<string, string> = {
   '+':'.-.-.', '-':'-....-', '_':'..--.-', '"':'.-..-.','@':'.--.-.',
 };
 
-// Reverse map untuk Morse → Text
 const REVERSE_MAP: Record<string, string> = {};
 Object.keys(MORSE_MAP).forEach(k => {
   REVERSE_MAP[MORSE_MAP[k]] = k;
@@ -108,6 +108,14 @@ export class MorsePage implements OnInit, OnDestroy {
     return this.toFormat === 'Morse'
       ? '- . .-.. .-.. --- / .-- --- .-. .-.. -..'
       : 'Hasil dekode muncul di sini...';
+  }
+
+  /**
+   * true jika minimal salah satu field (input ATAU output) terisi.
+   * Digunakan untuk disable/enable tombol audio, light, vibrate, save, send.
+   */
+  get hasContent(): boolean {
+    return !!(this.inputText?.trim() || this.outputText?.trim());
   }
 
   // ─── CONVERT ────────────────────────────────────────────────
@@ -351,17 +359,38 @@ export class MorsePage implements OnInit, OnDestroy {
       const unitMs  = this.wpmToUnit(this.speed);
       const timings = this.buildTimings(morse, unitMs);
       const pcm     = this.generatePCM(timings);
-      const blob    = await this.encodeMp3(pcm);
+      const blob = await this.encodeMp3(pcm)
 
-      this.lastMp3Filename = `morse_${Date.now()}.mp3`;
-      this.lastMp3Blob     = blob;
+      this.lastMp3Filename = 'morse_' + Date.now() + '.mp3'
+      this.lastMp3Blob = blob
 
-      const base64 = await this.blobToBase64(blob);
+      if (Capacitor.getPlatform() === 'web') {
+      this.browserDownload(blob, this.lastMp3Filename)
+      await loading.dismiss()
+      return
+      }
+
+      const base64Data = await this.blobToBase64(blob)
+      const folderPath = 'EntropyCode/MorseMp3'
+      const fileName = this.lastMp3Filename
+      const fullPath = folderPath + '/' + fileName
+
+      try {
+      await Filesystem.mkdir({
+      path: folderPath,
+      directory: Directory.Documents,
+      recursive: true
+      })
+      } catch (error) {
+      console.log('Direktori sudah siap')
+      }
+
       await Filesystem.writeFile({
-        path:      this.lastMp3Filename,
-        data:      base64,
-        directory: Directory.Cache,
-      });
+      path: fullPath,
+      data: base64Data,
+      directory: Directory.Documents
+      })
+      
 
       await loading.dismiss();
       this.toast(`Tersimpan: ${this.lastMp3Filename} ✓`, 'success');
@@ -389,7 +418,7 @@ export class MorsePage implements OnInit, OnDestroy {
     try {
       const uri = await Filesystem.getUri({
         path:      this.lastMp3Filename,
-        directory: Directory.Cache,
+        directory: Directory.Documents,
       });
 
       await Share.share({
@@ -598,10 +627,17 @@ export class MorsePage implements OnInit, OnDestroy {
   }
 
   private browserDownload(blob: Blob, filename: string): void {
-    const url = URL.createObjectURL(blob);
-    const a   = document.createElement('a');
-    a.href = url; a.download = filename; a.click();
-    URL.revokeObjectURL(url);
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = filename
+    a.style.display = 'none'
+
+    document.body.appendChild(a)
+    a.click()
+    document.body.removeChild(a)
+
+    setTimeout(() => URL.revokeObjectURL(url), 1500)
   }
 
   private async toast(

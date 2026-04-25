@@ -2,23 +2,28 @@
      MORSE PAGE — THE ENIGMA ENGINE
      ============================================================ -->
 
+
+
 <ion-content [fullscreen]="true" class="morse-content">
 
-<ion-header class="ion-no-border home-header">
+<ion-header class="ion-no-border settings-header">
   <ion-toolbar>
-    <div class="app-title-bar">
-      <span class="app-title">The Enigma Engine</span>
+    <div class="header-bar">
+      <!-- Ikon buku dekoratif -->
+      <ion-icon name="book-outline" class="header-icon"></ion-icon>
+      <span class="header-title">The Entropy Code</span>
     </div>
   </ion-toolbar>
 </ion-header>
 
-<section class="hero-section">
-  <div class="hero-label-row">
-    <span class="hero-label-text">DECIPHERING APPARATUS</span>
-  </div>
-  <h1 class="hero-title">Coded Lexicon</h1>
-</section>
 
+  <!-- ── HERO SECTION ─────────────────────────────────── -->
+  <section class="hero-section">
+    <div class="hero-label-row">
+      <span class="hero-label-text">DECIPHERING APPARATUS</span>
+    </div>
+    <h1 class="hero-title">Morse Translate</h1>
+  </section>
 
 
   <!-- ── FORMAT SELECTOR ROW ──────────────────────────── -->
@@ -161,7 +166,7 @@
     <button
       class="audio-btn audio-btn--play"
       (click)="onPlay()"
-      [disabled]="isPlaying && !isPaused"
+      [disabled]="!hasContent || (isPlaying && !isPaused)"
       title="Play"
     >
       <ion-icon name="play"></ion-icon>
@@ -172,7 +177,7 @@
       class="audio-btn"
       [class.audio-btn--active]="isPaused"
       (click)="onPause()"
-      [disabled]="!isPlaying"
+      [disabled]="!hasContent || !isPlaying"
       title="Pause"
     >
       <ion-icon name="pause"></ion-icon>
@@ -182,7 +187,7 @@
     <button
       class="audio-btn"
       (click)="onStop()"
-      [disabled]="!isPlaying && !isPaused"
+      [disabled]="!hasContent || (!isPlaying && !isPaused)"
       title="Stop"
     >
       <ion-icon name="stop"></ion-icon>
@@ -192,6 +197,7 @@
     <button
       class="audio-btn"
       (click)="onReplay()"
+      [disabled]="!hasContent"
       title="Replay"
     >
       <ion-icon name="refresh-outline"></ion-icon>
@@ -206,6 +212,7 @@
       class="feature-btn"
       [class.feature-btn--on]="isLightActive"
       (click)="onLight()"
+      [disabled]="!hasContent"
     >
       <div class="feature-icon">
         <ion-icon name="bulb-outline"></ion-icon>
@@ -217,6 +224,7 @@
       class="feature-btn"
       [class.feature-btn--on]="isVibrateActive"
       (click)="onVibrate()"
+      [disabled]="!hasContent"
     >
       <div class="feature-icon">
         <ion-icon name="phone-portrait-outline"></ion-icon>
@@ -227,6 +235,7 @@
     <button
       class="feature-btn"
       (click)="onCopy()"
+      [disabled]="!hasContent"
     >
       <div class="feature-icon">
         <ion-icon name="options-outline"></ion-icon>
@@ -239,12 +248,12 @@
   <!-- ── SAVE · SEND TO FRIEND ─────────────────────────── -->
   <section class="save-section">
 
-    <button class="save-btn" (click)="onSave()">
+    <button class="save-btn" (click)="onSave()" [disabled]="!hasContent">
       <ion-icon name="document-outline"></ion-icon>
       <span>SAVE</span>
     </button>
 
-    <button class="send-btn" (click)="onSendToFriend()">
+    <button class="send-btn" (click)="onSendToFriend()" [disabled]="!hasContent">
       <ion-icon name="send-outline"></ion-icon>
       <span>SEND TO FRIEND</span>
     </button>

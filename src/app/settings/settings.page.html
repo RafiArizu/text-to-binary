@@ -8,7 +8,7 @@
     <div class="header-bar">
       <!-- Ikon buku dekoratif -->
       <ion-icon name="book-outline" class="header-icon"></ion-icon>
-      <span class="header-title">The Enigma Engine</span>
+      <span class="header-title">The Entropy Code</span>
     </div>
   </ion-toolbar>
 </ion-header>
@@ -18,36 +18,10 @@
   <!-- ── PAGE HERO ─────────────────────────────────────── -->
   <div class="page-hero">
     <h1 class="page-title">Pengaturan</h1>
-    <p class="page-subtitle">KONFIGURASI INSTRUMEN ENIGMA</p>
   </div>
 
-  <!-- ════════════════════════════════════════════════════ -->
-  <!-- SECTION 1 — TAMPILAN VISUAL                         -->
-  <!-- ════════════════════════════════════════════════════ -->
-  <section class="settings-section">
 
-    <div class="section-header">
-      <ion-icon name="eye-outline" class="section-icon"></ion-icon>
-      <span class="section-title">Tampilan Visual</span>
-    </div>
 
-    <div class="section-card">
-      <div class="setting-row">
-        <span class="setting-label">Tema Layar</span>
-        <div class="select-wrapper">
-          <select
-            class="theme-select"
-            [(ngModel)]="selectedTheme"
-            (ngModelChange)="onThemeChange()"
-          >
-            <option *ngFor="let opt of themeOptions" [value]="opt">{{ opt }}</option>
-          </select>
-          <ion-icon name="chevron-down" class="select-chevron"></ion-icon>
-        </div>
-      </div>
-    </div>
-
-  </section>
 
   <!-- ════════════════════════════════════════════════════ -->
   <!-- SECTION 2 — KONTROL HAPTIK                          -->
@@ -103,7 +77,7 @@
   <section class="settings-section">
 
     <div class="section-header">
-      <ion-icon name="location-outline" class="section-icon"></ion-icon>
+      <ion-icon name="medal-outline" class="section-icon"></ion-icon>
       <span class="section-title">Dukungan Aplikasi</span>
     </div>
 

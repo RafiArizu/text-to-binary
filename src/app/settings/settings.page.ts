@@ -21,12 +21,11 @@ export class SettingsPage implements OnInit {
 
   // ── STATE ────────────────────────────────────────────────
   selectedTheme:    AppTheme = 'Terang';
-  themeOptions:     AppTheme[] = ['Terang', 'Gelap', 'Bawaan Sistem'];
   isVibrationOn:    boolean   = true;
   showPrivacyModal: boolean   = false;
 
   // Versi aplikasi
-  readonly appVersion = '4.2.1-Alpha';
+  readonly appVersion = '1.0-Beta';
 
   // URL Play Store (ganti dengan URL aplikasi Anda)
   readonly playStoreUrl = 'https://play.google.com/store/apps/details?id=com.enigmaengine.app';
@@ -38,7 +37,6 @@ export class SettingsPage implements OnInit {
   // ─── LIFECYCLE ──────────────────────────────────────────
   async ngOnInit(): Promise<void> {
     await this.loadPreferences();
-    this.applyTheme(this.selectedTheme);
   }
 
   // ─── LOAD PREFERENCES ───────────────────────────────────
@@ -57,32 +55,7 @@ export class SettingsPage implements OnInit {
   }
 
   // ─── TEMA LAYAR ─────────────────────────────────────────
-  async onThemeChange(): Promise<void> {
-    this.applyTheme(this.selectedTheme);
-    try {
-      await Preferences.set({ key: 'app_theme', value: this.selectedTheme });
-    } catch {}
-  }
 
-  private applyTheme(theme: AppTheme): void {
-    const body = document.body;
-
-    // Hapus semua kelas tema sebelumnya
-    body.classList.remove('theme-dark', 'theme-light', 'theme-system');
-
-    if (theme === 'Gelap') {
-      body.classList.add('theme-dark');
-    } else if (theme === 'Terang') {
-      body.classList.add('theme-light');
-    } else {
-      // Bawaan Sistem — deteksi otomatis
-      body.classList.add('theme-system');
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      if (prefersDark) {
-        body.classList.add('theme-dark');
-      }
-    }
-  }
 
   // ─── GETARAN GLOBAL ─────────────────────────────────────
   async onVibrationToggle(): Promise<void> {
