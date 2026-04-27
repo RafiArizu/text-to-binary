@@ -11,6 +11,7 @@ import { Haptics, ImpactStyle }  from '@capacitor/haptics';
 import { Share }        from '@capacitor/share';
 import { Preferences }  from '@capacitor/preferences';
 import { Capacitor } from '@capacitor/core';
+import { AlertController } from '@ionic/angular'
 
 // ─── MORSE CODE MAP ──────────────────────────────────────────
 const MORSE_MAP: Record<string, string> = {
@@ -85,6 +86,7 @@ export class MorsePage implements OnInit, OnDestroy {
     private toastCtrl:   ToastController,
     private loadingCtrl: LoadingController,
     private ngZone:      NgZone,
+    private alertCtrl: AlertController,
   ) {}
 
   // ─── LIFECYCLE ─────────────────────────────────────────────
@@ -309,19 +311,30 @@ export class MorsePage implements OnInit, OnDestroy {
   }
 
   // ─── VIBRATE ────────────────────────────────────────────────
-  async onVibrate(): Promise<void> {
-    if (this.isVibrateActive) {
-      this.isVibrateActive = false;
-      return;
+  async onVibrate() {
+    const pref = await Preferences.get({ key: 'app_vibration' })
+    const isGlobalVibrateOn = pref.value !== 'false'
+
+    if (!isGlobalVibrateOn) {
+    this.toast('Aktifkan getaran di menu setting terlebih dahulu.', 'warning')
+    return
     }
 
-    const morse = this.getMorseText();
-    if (!morse) { this.toast('Konversi teks ke morse dahulu.', 'warning'); return; }
+    if (this.isVibrateActive) {
+    this.isVibrateActive = false
+    return
+    }
 
-    const unitMs  = this.wpmToUnit(this.speed);
-    const timings = this.buildTimings(morse, unitMs);
-    this.isVibrateActive = true;
-    await this.runVibrateSeq(timings, 0);
+    const morse = this.getMorseText()
+    if (!morse) {
+    this.toast('Konversi teks ke morse dahulu.', 'warning')
+    return
+    }
+
+    const unitMs = this.wpmToUnit(this.speed)
+    const timings = this.buildTimings(morse, unitMs)
+    this.isVibrateActive = true
+    await this.runVibrateSeq(timings, 0)
   }
 
   private async runVibrateSeq(timings: MorseEvent[], idx: number): Promise<void> {
@@ -345,6 +358,15 @@ export class MorsePage implements OnInit, OnDestroy {
     });
 
     await this.runVibrateSeq(timings, idx + 1);
+  }
+
+  async showSuccessPopup() {
+    const alert = await this.alertCtrl.create({
+    header: 'Berhasil',
+    message: 'File berhasil di simpan, silahkan cek folder EntropyCode pada folder Documents ponsel anda.',
+    buttons: ['OK']
+    })
+    await alert.present()
   }
 
   // ─── SAVE MP3 ───────────────────────────────────────────────
@@ -392,8 +414,8 @@ export class MorsePage implements OnInit, OnDestroy {
       })
       
 
-      await loading.dismiss();
-      this.toast(`Tersimpan: ${this.lastMp3Filename} ✓`, 'success');
+      await loading.dismiss()
+      await this.showSuccessPopup()
     } catch (e) {
       await loading.dismiss();
       console.error('Save MP3 error:', e);
@@ -416,20 +438,23 @@ export class MorsePage implements OnInit, OnDestroy {
     }
 
     try {
-      const uri = await Filesystem.getUri({
-        path:      this.lastMp3Filename,
-        directory: Directory.Documents,
-      });
+      const folderPath = 'EntropyCode/MorseMp3'
+      const fullPath = folderPath + '/' + this.lastMp3Filename
+
+      const uriResult = await Filesystem.getUri({
+      path: fullPath,
+      directory: Directory.Documents
+      })
 
       await Share.share({
-        title:       'Pesan Morse — Enigma Engine',
-        text:        `Pesan morse: ${this.outputText || this.inputText}`,
-        url:         uri.uri,
-        dialogTitle: 'Bagikan audio morse via…',
-      });
-    } catch (e) {
-      console.error('Share error:', e);
-      this.toast('Gagal membagikan. Simpan file dulu.', 'danger');
+      title: 'Pesan Morse Enigma Engine',
+      text: 'Pesan morse',
+      files: [uriResult.uri],
+      dialogTitle: 'Bagikan audio morse'
+      })
+      } catch (e) {
+      console.error('Share error', e)
+      this.toast('Gagal membagikan', 'danger')
     }
   }
 

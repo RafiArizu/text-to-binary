@@ -1,4 +1,4 @@
-package io.ionic.starter;
+package com.entropycode.myapp;
 
 import com.getcapacitor.BridgeActivity;
 

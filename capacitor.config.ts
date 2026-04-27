@@ -1,8 +1,8 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
-  appName: 'text-to-binary',
+  appId: 'com.entropycode.myapp',
+  appName: 'Entropy Code',
   webDir: 'www'
 };
 

@@ -7,6 +7,7 @@ import { ToastController, LoadingController } from '@ionic/angular';
 import { Clipboard }    from '@capacitor/clipboard';
 import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
 import { Capacitor } from '@capacitor/core';
+import { AlertController } from '@ionic/angular'
 
 // ─── FORMAT TYPE ─────────────────────────────────────────────
 export type ConvertFormat = 'Text' | 'Binary' | 'Decimal' | 'Hexadecimal' | 'Octal';
@@ -29,6 +30,7 @@ export class HomePage implements OnInit {
   constructor(
     private toastCtrl:   ToastController,
     private loadingCtrl: LoadingController,
+    private alertCtrl: AlertController,
   ) {}
 
   ngOnInit() {}
@@ -97,6 +99,15 @@ export class HomePage implements OnInit {
     }
   }
 
+  async showSuccessPopup() {
+    const alert = await this.alertCtrl.create({
+    header: 'Berhasil',
+    message: 'File berhasil di simpan, silahkan cek folder EntropyCode pada folder Documents ponsel anda.',
+    buttons: ['OK']
+    })
+    await alert.present()
+  }
+
   // ── SAVE TXT ─────────────────────────────────────────────
   async onSaveTxt(): Promise<void> {
     const loading = await this.loadingCtrl.create({ message: 'Menyimpan file' })
@@ -132,7 +143,7 @@ export class HomePage implements OnInit {
     })
 
     await loading.dismiss()
-    this.showToast('File txt tersimpan', 'success')
+    await this.showSuccessPopup()
   }
 
   // ── SAVE BIN ─────────────────────────────────────────────
@@ -180,7 +191,7 @@ export class HomePage implements OnInit {
   })
 
   await loading.dismiss()
-  this.showToast(`File .bin tersimpan: ${filename}`, 'success')
+  await this.showSuccessPopup()
   }
 
   // ── KONVERSI: LOGIKA UTAMA ───────────────────────────────
